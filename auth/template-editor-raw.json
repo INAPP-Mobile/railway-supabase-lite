@@ -1,0 +1,54 @@
+{
+  "GOTRUE_API_HOST": {
+    "value": "0.0.0.0",
+    "description": "Bind address for the GoTrue API server."
+  },
+  "GOTRUE_API_PORT": {
+    "value": "9999",
+    "description": "Listen port for GoTrue API."
+  },
+  "GOTRUE_DB_DRIVER": {
+    "value": "postgres",
+    "description": "Database driver for GoTrue."
+  },
+  "GOTRUE_DB_DATABASE_URL": {
+    "value": "postgres://postgres:${{ shared.POSTGRES_PASSWORD }}@${{ postgres.RAILWAY_PRIVATE_DOMAIN }}:5432/postgres?search_path=auth",
+    "description": "PostgreSQL connection string for GoTrue. Uses private networking."
+  },
+  "GOTRUE_JWT_SECRET": {
+    "value": "${{ shared.JWT_SECRET }}",
+    "description": "HS256 secret for signing JWTs. References the shared JWT_SECRET."
+  },
+  "GOTRUE_JWT_EXP": {
+    "value": "3600",
+    "description": "JWT expiration time in seconds."
+  },
+  "API_EXTERNAL_URL": {
+    "value": "https://${{ kong.RAILWAY_PUBLIC_DOMAIN }}",
+    "description": "Public URL of the Kong gateway — external-facing API URL for GoTrue."
+  },
+  "GOTRUE_SITE_URL": {
+    "value": "https://${{ kong.RAILWAY_PUBLIC_DOMAIN }}",
+    "description": "Site URL for redirect flows. Uses Kong public domain."
+  },
+  "GOTRUE_URI_ALLOW_LIST": {
+    "value": "",
+    "description": "Comma-separated list of allowed redirect URIs."
+  },
+  "GOTRUE_EXTERNAL_EMAIL_ENABLED": {
+    "value": "true",
+    "description": "Enable external email provider support."
+  },
+  "GOTRUE_MAILER_AUTOCONFIRM": {
+    "value": "true",
+    "description": "Auto-confirm user emails on signup (development mode)."
+  },
+  "GOTRUE_SMTP_HOST": {
+    "value": "",
+    "description": "SMTP host for email sending (empty for no email)."
+  },
+  "GOTRUE_SMTP_PORT": {
+    "value": "",
+    "description": "SMTP port for email sending."
+  }
+}

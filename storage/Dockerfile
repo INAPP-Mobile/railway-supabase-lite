@@ -1,0 +1,2 @@
+FROM supabase/storage-api:v1.48.26
+EXPOSE 5000

@@ -1,0 +1,6 @@
+{
+  "MINIO_ROOT_PASSWORD": {
+    "description": "MinIO root password — must be non-empty. Used by storage-api for S3 access.",
+    "isOptional": false
+  }
+}

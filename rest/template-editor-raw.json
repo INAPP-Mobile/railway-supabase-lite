@@ -1,0 +1,18 @@
+{
+  "PGRST_DB_URI": {
+    "value": "postgres://postgres:${{ shared.POSTGRES_PASSWORD }}@${{ postgres.RAILWAY_PRIVATE_DOMAIN }}:5432/postgres",
+    "description": "PostgreSQL connection string for PostgREST. Uses private networking."
+  },
+  "PGRST_DB_SCHEMAS": {
+    "value": "public,storage,graphql_public",
+    "description": "Comma-separated list of schemas to expose via REST API."
+  },
+  "PGRST_DB_ANON_ROLE": {
+    "value": "anon",
+    "description": "Database role for anonymous (unauthenticated) requests."
+  },
+  "PGRST_JWT_SECRET": {
+    "value": "${{ shared.JWT_SECRET }}",
+    "description": "HS256 secret for verifying JWTs. References the shared JWT_SECRET."
+  }
+}

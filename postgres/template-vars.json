@@ -1,0 +1,6 @@
+{
+  "POSTGRES_PASSWORD": {
+    "description": "Master DB password — must be non-empty. Referenced by all services.",
+    "isOptional": false
+  }
+}

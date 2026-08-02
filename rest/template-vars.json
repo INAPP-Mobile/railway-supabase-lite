@@ -1,0 +1,12 @@
+{
+  "PGRST_DB_SCHEMAS": {
+    "defaultValue": "public,storage,graphql_public",
+    "description": "Comma-separated list of schemas to expose via REST API.",
+    "isOptional": true
+  },
+  "PGRST_DB_ANON_ROLE": {
+    "defaultValue": "anon",
+    "description": "Database role for anonymous (unauthenticated) requests.",
+    "isOptional": true
+  }
+}

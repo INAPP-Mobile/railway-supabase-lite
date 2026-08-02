@@ -1,0 +1,50 @@
+{
+  "DB_HOST": {
+    "value": "${{ postgres.RAILWAY_PRIVATE_DOMAIN }}",
+    "description": "PostgreSQL host via private networking."
+  },
+  "DB_PORT": {
+    "value": "5432",
+    "description": "PostgreSQL port."
+  },
+  "DB_USER": {
+    "value": "postgres",
+    "description": "PostgreSQL username."
+  },
+  "DB_PASSWORD": {
+    "value": "${{ shared.POSTGRES_PASSWORD }}",
+    "description": "PostgreSQL password — references shared POSTGRES_PASSWORD."
+  },
+  "DB_NAME": {
+    "value": "postgres",
+    "description": "PostgreSQL database name."
+  },
+  "DB_AFTER_CONNECT_QUERY": {
+    "value": "SET search_path TO _realtime",
+    "description": "SQL executed after connecting to Postgres."
+  },
+  "JWT_SECRET": {
+    "value": "${{ shared.JWT_SECRET }}",
+    "description": "JWT secret for auth — references shared JWT_SECRET."
+  },
+  "API_JWT_SECRET": {
+    "value": "${{ shared.JWT_SECRET }}",
+    "description": "JWT secret for realtime API — references shared JWT_SECRET."
+  },
+  "SECRET_KEY_BASE": {
+    "value": "${{ secret(64) }}",
+    "description": "Elixir secret key base for crypto operations."
+  },
+  "ERL_AFLAGS": {
+    "value": "-proto_dist inet_tcp",
+    "description": "Erlang distribution flags for clustering."
+  },
+  "ENABLE_TAILSCALE": {
+    "value": "false",
+    "description": "Whether to enable Tailscale networking."
+  },
+  "DNS_NODES": {
+    "value": "",
+    "description": "DNS nodes for clustering."
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "KONG_PROXY_LISTEN": {
+    "defaultValue": "0.0.0.0:8000",
+    "description": "Kong proxy listen address and port.",
+    "isOptional": true
+  }
+}

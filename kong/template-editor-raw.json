@@ -1,0 +1,22 @@
+{
+  "AUTH_HOST": {
+    "value": "${{ auth.RAILWAY_PRIVATE_DOMAIN }}",
+    "description": "Private domain for the auth service."
+  },
+  "REST_HOST": {
+    "value": "${{ rest.RAILWAY_PRIVATE_DOMAIN }}",
+    "description": "Private domain for the rest (PostgREST) service."
+  },
+  "REALTIME_HOST": {
+    "value": "${{ realtime.RAILWAY_PRIVATE_DOMAIN }}",
+    "description": "Private domain for the realtime service."
+  },
+  "STORAGE_HOST": {
+    "value": "${{ storage.RAILWAY_PRIVATE_DOMAIN }}",
+    "description": "Private domain for the storage service."
+  },
+  "KONG_PROXY_LISTEN": {
+    "value": "0.0.0.0:8000",
+    "description": "Kong proxy listen address and port."
+  }
+}

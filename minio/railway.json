@@ -1,0 +1,22 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "dockerfile",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "port": 9000,
+    "healthcheckPath": "/minio/health/live",
+    "healthcheckTimeout": 60,
+    "restartPolicyType": "on_failure",
+    "restartPolicyMaxRetries": 10,
+    "startCommand": "minio server /data --console-address :9001",
+    "volumeMounts": [
+      {
+        "name": "minio-data",
+        "mountPath": "/data"
+      }
+    ]
+  }
+}
