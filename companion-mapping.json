@@ -1,27 +1,30 @@
 {
   "postgres": {
-    "PRIVATE_DOMAIN": "postgres.railway.internal",
-    "POSTGRES_PASSWORD": "POSTGRES_PASSWORD",
-    "JWT_SECRET": "JWT_SECRET"
+    "PRIVATE_DOMAIN": "postgres.RAILWAY_PRIVATE_DOMAIN",
+    "POSTGRES_PASSWORD": "POSTGRES_PASSWORD"
   },
   "minio": {
-    "PRIVATE_DOMAIN": "minio.railway.internal",
+    "PRIVATE_DOMAIN": "minio.RAILWAY_PRIVATE_DOMAIN",
     "MINIO_ROOT_USER": "MINIO_ROOT_USER",
     "MINIO_ROOT_PASSWORD": "MINIO_ROOT_PASSWORD"
   },
   "auth": {
-    "PRIVATE_DOMAIN": "auth.railway.internal"
+    "PRIVATE_DOMAIN": "auth.RAILWAY_PRIVATE_DOMAIN",
+    "JWT_SECRET": "JWT_SECRET",
+    "ANON_KEY": "ANON_KEY",
+    "SERVICE_ROLE_KEY": "SERVICE_ROLE_KEY",
+    "DASHBOARD_PASSWORD": "DASHBOARD_PASSWORD"
   },
   "rest": {
-    "PRIVATE_DOMAIN": "rest.railway.internal"
+    "PRIVATE_DOMAIN": "rest.RAILWAY_PRIVATE_DOMAIN"
   },
   "realtime": {
-    "PRIVATE_DOMAIN": "realtime.railway.internal"
+    "PRIVATE_DOMAIN": "realtime.RAILWAY_PRIVATE_DOMAIN"
   },
   "storage": {
-    "PRIVATE_DOMAIN": "storage.railway.internal"
+    "PRIVATE_DOMAIN": "storage.RAILWAY_PRIVATE_DOMAIN"
   },
   "kong": {
-    "PRIVATE_DOMAIN": "kong.railway.internal"
+    "PRIVATE_DOMAIN": "kong.RAILWAY_PUBLIC_DOMAIN"
   }
 }

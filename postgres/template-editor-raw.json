@@ -1,11 +1,11 @@
 {
   "POSTGRES_USER": {
     "value": "postgres",
-    "description": "PostgreSQL superuser username. Required by image-based Postgres (not auto-injected)."
+    "description": "PostgreSQL superuser username."
   },
   "POSTGRES_PASSWORD": {
-    "value": "${{ secret(32) }}",
-    "description": "Master DB password — referenced by all consumer services via shared variable."
+    "value": "${{secret(32)}}",
+    "description": "Master DB password. Referenced by all consumer services."
   },
   "POSTGRES_DB": {
     "value": "postgres",
@@ -13,10 +13,10 @@
   },
   "PGDATA": {
     "value": "/var/lib/postgresql/data/pgdata",
-    "description": "PostgreSQL data directory under the volume mount. Volume is mounted at /var/lib/postgresql (parent), PGDATA is the data subdirectory — fixes initdb lost+found collision."
+    "description": "PostgreSQL data directory under the volume mount."
   },
   "DATABASE_URL": {
-    "value": "postgresql://postgres:${{POSTGRES_PASSWORD}}@${{PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
-    "description": "Auto-constructed from POSTGRES_USER, POSTGRES_PASSWORD, PRIVATE_DOMAIN, and POSTGRES_DB."
+    "value": "postgresql://postgres:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
+    "description": "Auto-constructed connection string for the Postgres service."
   }
 }

@@ -1,12 +1,16 @@
 {
-  "ENABLE_TAILSCALE": {
-    "defaultValue": "false",
-    "description": "Whether to enable Tailscale networking.",
-    "isOptional": true
-  },
-  "DNS_NODES": {
-    "defaultValue": "",
-    "description": "DNS nodes for clustering.",
-    "isOptional": true
-  }
+  "variables": [
+    {
+      "name": "ENABLE_TAILSCALE",
+      "defaultValue": "false",
+      "description": "Whether to enable Tailscale networking.",
+      "isOptional": true
+    },
+    {
+      "name": "DNS_NODES",
+      "defaultValue": "",
+      "description": "DNS nodes for clustering.",
+      "isOptional": true
+    }
+  ]
 }

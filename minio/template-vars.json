@@ -1,6 +1,16 @@
 {
-  "MINIO_ROOT_PASSWORD": {
-    "description": "MinIO root password — must be non-empty. Used by storage-api for S3 access.",
-    "isOptional": false
-  }
+  "variables": [
+    {
+      "name": "MINIO_ROOT_PASSWORD",
+      "defaultValue": "${{secret(32)}}",
+      "description": "MinIO root password. Referenced by storage-api for S3 access.",
+      "isOptional": false
+    },
+    {
+      "name": "MINIO_ROOT_USER",
+      "defaultValue": "minioadmin",
+      "description": "MinIO root username.",
+      "isOptional": true
+    }
+  ]
 }

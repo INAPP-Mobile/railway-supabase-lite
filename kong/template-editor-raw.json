@@ -1,18 +1,18 @@
 {
   "AUTH_HOST": {
-    "value": "${{ auth.RAILWAY_PRIVATE_DOMAIN }}",
+    "value": "auth.RAILWAY_PRIVATE_DOMAIN",
     "description": "Private domain for the auth service."
   },
   "REST_HOST": {
-    "value": "${{ rest.RAILWAY_PRIVATE_DOMAIN }}",
+    "value": "rest.RAILWAY_PRIVATE_DOMAIN",
     "description": "Private domain for the rest (PostgREST) service."
   },
   "REALTIME_HOST": {
-    "value": "${{ realtime.RAILWAY_PRIVATE_DOMAIN }}",
+    "value": "realtime.RAILWAY_PRIVATE_DOMAIN",
     "description": "Private domain for the realtime service."
   },
   "STORAGE_HOST": {
-    "value": "${{ storage.RAILWAY_PRIVATE_DOMAIN }}",
+    "value": "storage.RAILWAY_PRIVATE_DOMAIN",
     "description": "Private domain for the storage service."
   },
   "KONG_PROXY_LISTEN": {

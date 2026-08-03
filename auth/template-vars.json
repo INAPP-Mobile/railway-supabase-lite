@@ -1,42 +1,62 @@
 {
-  "GOTRUE_API_HOST": {
-    "defaultValue": "0.0.0.0",
-    "description": "Bind address for the GoTrue API server.",
-    "isOptional": true
-  },
-  "GOTRUE_API_PORT": {
-    "defaultValue": "9999",
-    "description": "Listen port for GoTrue API.",
-    "isOptional": true
-  },
-  "GOTRUE_JWT_EXP": {
-    "defaultValue": "3600",
-    "description": "JWT expiration time in seconds.",
-    "isOptional": true
-  },
-  "GOTRUE_EXTERNAL_EMAIL_ENABLED": {
-    "defaultValue": "true",
-    "description": "Enable external email provider support.",
-    "isOptional": true
-  },
-  "GOTRUE_MAILER_AUTOCONFIRM": {
-    "defaultValue": "true",
-    "description": "Auto-confirm user emails on signup (dev mode).",
-    "isOptional": true
-  },
-  "GOTRUE_SMTP_HOST": {
-    "defaultValue": "",
-    "description": "SMTP host for email sending (leave empty to disable).",
-    "isOptional": true
-  },
-  "GOTRUE_SMTP_PORT": {
-    "defaultValue": "",
-    "description": "SMTP port for email sending.",
-    "isOptional": true
-  },
-  "GOTRUE_URI_ALLOW_LIST": {
-    "defaultValue": "",
-    "description": "Comma-separated list of allowed redirect URIs.",
-    "isOptional": true
-  }
+  "variables": [
+    {
+      "name": "JWT_SECRET",
+      "defaultValue": "${{secret(64)}}",
+      "description": "HS256 key that signs ANON_KEY and SERVICE_ROLE_KEY. Generate with: openssl rand -base64 32",
+      "isOptional": false
+    },
+    {
+      "name": "ANON_KEY",
+      "description": "Public client API key \u2014 JWT signed by JWT_SECRET. View in supabase.com/docs/guides/self-hosting#api-keys",
+      "isOptional": false
+    },
+    {
+      "name": "SERVICE_ROLE_KEY",
+      "description": "Server-side key with full access. JWT signed by JWT_SECRET.",
+      "isOptional": false
+    },
+    {
+      "name": "DASHBOARD_USERNAME",
+      "defaultValue": "supabase",
+      "description": "Username for any admin dashboard access (if Studio were included).",
+      "isOptional": true
+    },
+    {
+      "name": "DASHBOARD_PASSWORD",
+      "defaultValue": "${{secret(16)}}",
+      "description": "Password for admin dashboard access.",
+      "isOptional": true
+    },
+    {
+      "name": "GOTRUE_SMTP_HOST",
+      "defaultValue": "",
+      "description": "SMTP host for email sending (empty for no email).",
+      "isOptional": true
+    },
+    {
+      "name": "GOTRUE_SMTP_PORT",
+      "defaultValue": "",
+      "description": "SMTP port for email sending.",
+      "isOptional": true
+    },
+    {
+      "name": "GOTRUE_MAILER_AUTOCONFIRM",
+      "defaultValue": "true",
+      "description": "Auto-confirm user emails on signup (dev mode).",
+      "isOptional": true
+    },
+    {
+      "name": "GOTRUE_EXTERNAL_EMAIL_ENABLED",
+      "defaultValue": "true",
+      "description": "Enable external email provider support.",
+      "isOptional": true
+    },
+    {
+      "name": "GOTRUE_URI_ALLOW_LIST",
+      "defaultValue": "",
+      "description": "Comma-separated list of allowed redirect URIs.",
+      "isOptional": true
+    }
+  ]
 }

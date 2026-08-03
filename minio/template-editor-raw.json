@@ -4,7 +4,7 @@
     "description": "MinIO root username."
   },
   "MINIO_ROOT_PASSWORD": {
-    "value": "${{ secret(32) }}",
+    "value": "${{secret(32)}}",
     "description": "MinIO root password. Referenced by storage-api as AWS_SECRET_ACCESS_KEY."
   }
 }

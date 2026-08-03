@@ -1,6 +1,28 @@
 {
-  "POSTGRES_PASSWORD": {
-    "description": "Master DB password — must be non-empty. Referenced by all services.",
-    "isOptional": false
-  }
+  "variables": [
+    {
+      "name": "POSTGRES_PASSWORD",
+      "defaultValue": "${{secret(32)}}",
+      "description": "Master DB password referenced by all services. Must be non-empty.",
+      "isOptional": false
+    },
+    {
+      "name": "POSTGRES_USER",
+      "defaultValue": "postgres",
+      "description": "PostgreSQL superuser username.",
+      "isOptional": true
+    },
+    {
+      "name": "POSTGRES_DB",
+      "defaultValue": "postgres",
+      "description": "Default PostgreSQL database name.",
+      "isOptional": true
+    },
+    {
+      "name": "PGDATA",
+      "defaultValue": "/var/lib/postgresql/data/pgdata",
+      "description": "PostgreSQL data directory under the volume mount.",
+      "isOptional": true
+    }
+  ]
 }

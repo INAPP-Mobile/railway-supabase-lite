@@ -49,20 +49,41 @@ Railway will provision:
 - Two persistent volumes: `postgres-data` (mounted at `/var/lib/postgresql`) and `minio-data` (mounted at `/data`)
 - Required secrets (`POSTGRES_PASSWORD`, `JWT_SECRET`, `ANON_KEY`, `SERVICE_ROLE_KEY`, `DASHBOARD_PASSWORD`, `MINIO_ROOT_PASSWORD`)
 
-### Required user-configurable variables
+### User-configurable variables
 
-These are defined in `template-vars.json` and prompted on deploy:
+These are defined in each service's `template-vars.json` and prompted on deploy:
 
-| Variable | Default / generator | Purpose |
-|---|---|---|
-| `POSTGRES_PASSWORD` | `${{ secret(32) }}` | Master Postgres password used by all services |
-| `JWT_SECRET` | `${{ secret(64) }}` | HS256 signing key for `ANON_KEY` and `SERVICE_ROLE_KEY` |
-| `ANON_KEY` | `${{ secret(128) }}` | Public client JWT |
-| `SERVICE_ROLE_KEY` | `${{ secret(128) }}` | Server-side full-access JWT |
-| `DASHBOARD_USERNAME` | `supabase` | Admin username placeholder |
-| `DASHBOARD_PASSWORD` | `${{ secret(16) }}` | Admin password placeholder |
+| Variable | Service | Default / generator | Purpose |
+|---|---|---|---|
+| `POSTGRES_PASSWORD` | postgres | `${{ secret(32) }}` | Master Postgres password used by all services |
+| `MINIO_ROOT_PASSWORD` | minio | `${{ secret(32) }}` | MinIO root password used by storage-api |
+| `JWT_SECRET` | auth | `${{ secret(64) }}` | HS256 signing key for `ANON_KEY` and `SERVICE_ROLE_KEY` |
+| `ANON_KEY` | auth | none (required) | Public client JWT — generate from `JWT_SECRET` |
+| `SERVICE_ROLE_KEY` | auth | none (required) | Server-side full-access JWT — generate from `JWT_SECRET` |
+| `DASHBOARD_USERNAME` | auth | `supabase` | Admin username placeholder |
+| `DASHBOARD_PASSWORD` | auth | `${{ secret(16) }}` | Admin password placeholder |
 
-> All other variables are auto-wired between services via private domains.
+> All internal wiring variables are auto-linked between services via bare cross-service references (`Service.VAR`) in the Raw JSON editor.
+
+### Generating `ANON_KEY` and `SERVICE_ROLE_KEY`
+
+Both keys must be JWTs signed by `JWT_SECRET`. Install the Supabase CLI or use any HS256 signer, then generate:
+
+```bash
+# Replace <JWT_SECRET> with the value Railway generated for JWT_SECRET
+supabase secrets generate --secret <JWT_SECRET>
+```
+
+Or with Node.js / jsonwebtoken:
+
+```js
+const jwt = require('jsonwebtoken')
+const secret = '<JWT_SECRET>' // from Railway auth service variables
+const anon = jwt.sign({ role: 'anon' }, secret, { algorithm: 'HS256' })
+const service_role = jwt.sign({ role: 'service_role' }, secret, { algorithm: 'HS256' })
+```
+
+Paste `anon` into **ANON_KEY** and `service_role` into **SERVICE_ROLE_KEY** in the deploy form.
 
 ## Post-deploy setup
 
