@@ -26,7 +26,9 @@ done
 # Each statement runs in its own transaction with exception handling
 # so one failure (e.g. pgbouncer) doesn't roll back the others.
 echo "Granting schema permissions..."
-su postgres -c "psql -h 127.0.0.1 -U postgres -d postgres" <<'SQL'
+# Connect as supabase_admin (the actual superuser in supabase/postgres image)
+# to elevate the postgres role and grant schema permissions.
+su postgres -c "psql -h 127.0.0.1 -U supabase_admin -d postgres" <<'SQL'
 -- Make postgres a SUPERUSER so it can run migrations on all schemas
 ALTER ROLE postgres WITH SUPERUSER;
 SQL
