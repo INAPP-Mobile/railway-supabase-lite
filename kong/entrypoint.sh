@@ -11,6 +11,17 @@ export SUPABASE_STORAGE_HOST=${STORAGE_HOST}
 cat > /tmp/kong.yml <<EOF
 _format_version: "2.1"
 services:
+  - name: health
+    url: http://127.0.0.1:8000
+    routes:
+      - name: health-route
+        paths: ["/health"]
+        strip_path: false
+    plugins:
+      - name: request-termination
+        config:
+          status_code: 200
+          message: "OK"
   - name: auth
     url: http://${SUPABASE_AUTH_HOST}:9999/verify
     routes:
