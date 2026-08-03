@@ -27,47 +27,8 @@ done
 # so one failure (e.g. pgbouncer) doesn't roll back the others.
 echo "Granting schema permissions..."
 su postgres -c "psql -h 127.0.0.1 -U postgres -d postgres" <<'SQL'
--- Grant schema-level privileges (each schema independently)
-DO $$
-DECLARE
-  r RECORD;
-BEGIN
-  FOR r IN SELECT nspname FROM pg_namespace
-           WHERE nspname NOT IN ('pg_catalog', 'information_schema', 'pg_toast', 'pgbouncer')
-  LOOP
-    BEGIN
-      EXECUTE format('GRANT ALL ON SCHEMA %I TO postgres', r.nspname);
-    EXCEPTION WHEN OTHERS THEN
-      RAISE NOTICE 'Skipping GRANT for schema %: %', r.nspname, SQLERRM;
-    END;
-    BEGIN
-      EXECUTE format('ALTER SCHEMA %I OWNER TO postgres', r.nspname);
-    EXCEPTION WHEN OTHERS THEN
-      RAISE NOTICE 'Skipping ALTER OWNER for schema %: %', r.nspname, SQLERRM;
-    END;
-    BEGIN
-      EXECUTE format('GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA %I TO postgres', r.nspname);
-    EXCEPTION WHEN OTHERS THEN
-      RAISE NOTICE 'Skipping TABLE GRANT for schema %: %', r.nspname, SQLERRM;
-    END;
-    BEGIN
-      EXECUTE format('GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA %I TO postgres', r.nspname);
-    EXCEPTION WHEN OTHERS THEN
-      RAISE NOTICE 'Skipping SEQUENCE GRANT for schema %: %', r.nspname, SQLERRM;
-    END;
-    BEGIN
-      EXECUTE format('GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA %I TO postgres', r.nspname);
-    EXCEPTION WHEN OTHERS THEN
-      RAISE NOTICE 'Skipping FUNCTION GRANT for schema %: %', r.nspname, SQLERRM;
-    END;
-  END LOOP;
-END $$;
-
--- Ensure default privileges for future objects
-ALTER DEFAULT PRIVILEGES IN SCHEMA auth GRANT ALL ON TABLES TO postgres;
-ALTER DEFAULT PRIVILEGES IN SCHEMA auth GRANT ALL ON SEQUENCES TO postgres;
-ALTER DEFAULT PRIVILEGES IN SCHEMA storage GRANT ALL ON TABLES TO postgres;
-ALTER DEFAULT PRIVILEGES IN SCHEMA storage GRANT ALL ON SEQUENCES TO postgres;
+-- Make postgres a SUPERUSER so it can run migrations on all schemas
+ALTER ROLE postgres WITH SUPERUSER;
 SQL
 echo "Schema permissions granted."
 
