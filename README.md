@@ -57,19 +57,17 @@ These are defined in each service's `template-vars.json` and prompted on deploy:
 |---|---|---|---|
 | `POSTGRES_PASSWORD` | postgres | `${{ secret(32) }}` | Master Postgres password used by all services |
 | `MINIO_ROOT_PASSWORD` | minio | `${{ secret(32) }}` | MinIO root password used by storage-api |
-| `JWT_SECRET` | auth | `change-this-supabase-jwt-secret-immediately` | HS256 signing key for `ANON_KEY` and `SERVICE_ROLE_KEY` |
-| `ANON_KEY` | auth | *(placeholder JWT)* | Public client JWT — **change in production** |
-| `SERVICE_ROLE_KEY` | auth | *(placeholder JWT)* | Server-side full-access JWT — **change in production** |
+| `JWT_SECRET` | auth | `${{ secret(64) }}` | HS256 signing key for `ANON_KEY` and `SERVICE_ROLE_KEY` |
+| `ANON_KEY` | auth | none (required) | Public client JWT — generate from `JWT_SECRET` |
+| `SERVICE_ROLE_KEY` | auth | none (required) | Server-side full-access JWT — generate from `JWT_SECRET` |
 | `DASHBOARD_USERNAME` | auth | `supabase` | Admin username placeholder |
 | `DASHBOARD_PASSWORD` | auth | `${{ secret(16) }}` | Admin password placeholder |
 
-> ⚠️ **Security warning:** The default `JWT_SECRET`, `ANON_KEY`, and `SERVICE_ROLE_KEY` are insecure placeholders shared with every deployment. For any non-demo use, change `JWT_SECRET` and regenerate `ANON_KEY` / `SERVICE_ROLE_KEY` from it. See the generation commands below.
-
 > All internal wiring variables are auto-linked between services via cross-service references (`${{Service.VAR}}`) in the Raw JSON editor.
 
-### Generating your own keys
+### Generating `ANON_KEY` and `SERVICE_ROLE_KEY`
 
-Both keys must be JWTs signed by `JWT_SECRET`. After deployment, copy the generated `JWT_SECRET`, then generate new keys:
+Both keys must be JWTs signed by `JWT_SECRET`. Install the Supabase CLI or use any HS256 signer, then generate:
 
 ```bash
 # Replace <JWT_SECRET> with the value Railway shows for JWT_SECRET

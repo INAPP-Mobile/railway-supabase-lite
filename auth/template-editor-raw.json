@@ -16,8 +16,8 @@
     "description": "PostgreSQL connection string for GoTrue. Uses private networking."
   },
   "JWT_SECRET": {
-    "value": "change-this-supabase-jwt-secret-immediately",
-    "description": "HS256 secret shared across all Supabase services. CHANGE THIS in production and regenerate ANON_KEY / SERVICE_ROLE_KEY."
+    "value": "${{secret(64)}}",
+    "description": "HS256 secret shared across all Supabase services for signing and verifying JWTs."
   },
   "GOTRUE_JWT_SECRET": {
     "value": "${{JWT_SECRET}}",
@@ -56,12 +56,12 @@
     "description": "SMTP port for email sending."
   },
   "ANON_KEY": {
-    "value": "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJyb2xlIjogImFub24iLCAiaXNzIjogInN1cGFiYXNlIiwgImlhdCI6IDE3ODU3MzIzNjcsICJleHAiOiAyMTAxMDkyMzY3fQ.W1FmAQ5mB2bGnXaEk0dtFGH1nKVK9MH8Fu-jTeRpkbU",
-    "description": "Public client API key \u2014 JWT signed by JWT_SECRET. Default is an insecure placeholder; change in production."
+    "value": "",
+    "description": "Public client API key \u2014 JWT signed by JWT_SECRET. Must be provided by user."
   },
   "SERVICE_ROLE_KEY": {
-    "value": "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJyb2xlIjogInNlcnZpY2Vfcm9sZSIsICJpc3MiOiAic3VwYWJhc2UiLCAiaWF0IjogMTc4NTczMjM2NywgImV4cCI6IDIxMDEwOTIzNjd9.vWytKnCrDP_oIxZ7MxLg5eu-VK7HGr8lOcFfiRIOTno",
-    "description": "Server-side full-access key \u2014 JWT signed by JWT_SECRET. Default is an insecure placeholder; change in production."
+    "value": "",
+    "description": "Server-side key with full access. JWT signed by JWT_SECRET. Must be provided by user."
   },
   "DASHBOARD_USERNAME": {
     "value": "supabase",

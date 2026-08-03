@@ -2,21 +2,19 @@
   "variables": [
     {
       "name": "JWT_SECRET",
-      "defaultValue": "change-this-supabase-jwt-secret-immediately",
-      "description": "HS256 key that signs ANON_KEY and SERVICE_ROLE_KEY. CHANGE THIS in production and regenerate keys.",
+      "defaultValue": "${{secret(64)}}",
+      "description": "HS256 key that signs ANON_KEY and SERVICE_ROLE_KEY. Generate with: openssl rand -base64 32",
       "isOptional": false
     },
     {
       "name": "ANON_KEY",
-      "description": "Public client API key \u2014 JWT signed by JWT_SECRET. Default is an insecure placeholder; change in production.",
-      "isOptional": false,
-      "defaultValue": "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJyb2xlIjogImFub24iLCAiaXNzIjogInN1cGFiYXNlIiwgImlhdCI6IDE3ODU3MzIzNjcsICJleHAiOiAyMTAxMDkyMzY3fQ.W1FmAQ5mB2bGnXaEk0dtFGH1nKVK9MH8Fu-jTeRpkbU"
+      "description": "Public client API key \u2014 JWT signed by JWT_SECRET. View supabase.com/docs/guides/self-hosting#api-keys",
+      "isOptional": false
     },
     {
       "name": "SERVICE_ROLE_KEY",
-      "description": "Server-side key with full access \u2014 JWT signed by JWT_SECRET. Default is an insecure placeholder; change in production.",
-      "isOptional": false,
-      "defaultValue": "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJyb2xlIjogInNlcnZpY2Vfcm9sZSIsICJpc3MiOiAic3VwYWJhc2UiLCAiaWF0IjogMTc4NTczMjM2NywgImV4cCI6IDIxMDEwOTIzNjd9.vWytKnCrDP_oIxZ7MxLg5eu-VK7HGr8lOcFfiRIOTno"
+      "description": "Server-side key with full access \u2014 JWT signed by JWT_SECRET.",
+      "isOptional": false
     },
     {
       "name": "DASHBOARD_USERNAME",
