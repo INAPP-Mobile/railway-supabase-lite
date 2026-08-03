@@ -31,6 +31,9 @@ echo "Granting schema permissions..."
 su postgres -c "psql -h 127.0.0.1 -U supabase_admin -d postgres" <<'SQL'
 -- Make postgres a SUPERUSER so it can run migrations on all schemas
 ALTER ROLE postgres WITH SUPERUSER;
+-- Ensure _realtime schema exists (used by supabase/realtime)
+CREATE SCHEMA IF NOT EXISTS _realtime;
+GRANT ALL ON SCHEMA _realtime TO postgres;
 SQL
 echo "Schema permissions granted."
 
