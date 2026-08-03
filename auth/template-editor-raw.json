@@ -12,7 +12,7 @@
     "description": "Database driver for GoTrue."
   },
   "GOTRUE_DB_DATABASE_URL": {
-    "value": "postgres://postgres:postgres.POSTGRES_PASSWORD@postgres.RAILWAY_PRIVATE_DOMAIN:5432/postgres?search_path=auth",
+    "value": "postgres://postgres:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/postgres?search_path=auth",
     "description": "PostgreSQL connection string for GoTrue. Uses private networking."
   },
   "JWT_SECRET": {
@@ -28,11 +28,11 @@
     "description": "JWT expiration time in seconds."
   },
   "API_EXTERNAL_URL": {
-    "value": "https://kong.RAILWAY_PUBLIC_DOMAIN",
+    "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
     "description": "Public URL of the Kong gateway \u2014 external-facing API URL for GoTrue."
   },
   "GOTRUE_SITE_URL": {
-    "value": "https://kong.RAILWAY_PUBLIC_DOMAIN",
+    "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
     "description": "Site URL for redirect flows. Uses Kong public domain."
   },
   "GOTRUE_URI_ALLOW_LIST": {

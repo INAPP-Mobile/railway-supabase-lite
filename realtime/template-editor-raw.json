@@ -1,6 +1,6 @@
 {
   "DB_HOST": {
-    "value": "postgres.RAILWAY_PRIVATE_DOMAIN",
+    "value": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}",
     "description": "PostgreSQL host via private networking."
   },
   "DB_PORT": {
@@ -12,7 +12,7 @@
     "description": "PostgreSQL username."
   },
   "DB_PASSWORD": {
-    "value": "postgres.POSTGRES_PASSWORD",
+    "value": "${{postgres.POSTGRES_PASSWORD}}",
     "description": "PostgreSQL password \u2014 references the postgres service."
   },
   "DB_NAME": {
@@ -24,11 +24,11 @@
     "description": "SQL executed after connecting to Postgres."
   },
   "JWT_SECRET": {
-    "value": "auth.JWT_SECRET",
+    "value": "${{auth.JWT_SECRET}}",
     "description": "JWT secret for auth \u2014 references the auth service JWT_SECRET."
   },
   "API_JWT_SECRET": {
-    "value": "auth.JWT_SECRET",
+    "value": "${{auth.JWT_SECRET}}",
     "description": "JWT secret for realtime API \u2014 references the auth service JWT_SECRET."
   },
   "SECRET_KEY_BASE": {

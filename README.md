@@ -63,7 +63,7 @@ These are defined in each service's `template-vars.json` and prompted on deploy:
 | `DASHBOARD_USERNAME` | auth | `supabase` | Admin username placeholder |
 | `DASHBOARD_PASSWORD` | auth | `${{ secret(16) }}` | Admin password placeholder |
 
-> All internal wiring variables are auto-linked between services via bare cross-service references (`Service.VAR`) in the Raw JSON editor.
+> All internal wiring variables are auto-linked between services via cross-service references (`${{Service.VAR}}`) in the Raw JSON editor.
 
 ### Generating `ANON_KEY` and `SERVICE_ROLE_KEY`
 

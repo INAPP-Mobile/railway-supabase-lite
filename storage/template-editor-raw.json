@@ -1,18 +1,18 @@
 {
   "ANON_KEY": {
-    "value": "auth.ANON_KEY",
+    "value": "${{auth.ANON_KEY}}",
     "description": "Public anon JWT \u2014 references the auth service ANON_KEY."
   },
   "SERVICE_ROLE_KEY": {
-    "value": "auth.SERVICE_ROLE_KEY",
+    "value": "${{auth.SERVICE_ROLE_KEY}}",
     "description": "Server-side full-access key \u2014 references the auth service SERVICE_ROLE_KEY."
   },
   "PGRST_JWT_SECRET": {
-    "value": "auth.JWT_SECRET",
+    "value": "${{auth.JWT_SECRET}}",
     "description": "HS256 secret for JWT verification \u2014 references the auth service JWT_SECRET."
   },
   "DATABASE_URL": {
-    "value": "postgres://postgres:postgres.POSTGRES_PASSWORD@postgres.RAILWAY_PRIVATE_DOMAIN:5432/postgres?search_path=storage",
+    "value": "postgres://postgres:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/postgres?search_path=storage",
     "description": "PostgreSQL connection for storage API \u2014 uses private networking."
   },
   "FILE_SIZE_LIMIT": {
@@ -32,11 +32,11 @@
     "description": "Default S3 bucket name for storage."
   },
   "AWS_ACCESS_KEY_ID": {
-    "value": "minio.MINIO_ROOT_USER",
+    "value": "${{minio.MINIO_ROOT_USER}}",
     "description": "S3 access key \u2014 references the minio service MINIO_ROOT_USER."
   },
   "AWS_SECRET_ACCESS_KEY": {
-    "value": "minio.MINIO_ROOT_PASSWORD",
+    "value": "${{minio.MINIO_ROOT_PASSWORD}}",
     "description": "S3 secret key \u2014 references the minio service MINIO_ROOT_PASSWORD."
   },
   "AWS_REGION": {
@@ -44,7 +44,7 @@
     "description": "AWS region for S3."
   },
   "AWS_S3_ENDPOINT": {
-    "value": "http://minio.RAILWAY_PRIVATE_DOMAIN:9000",
+    "value": "http://${{minio.RAILWAY_PRIVATE_DOMAIN}}:9000",
     "description": "S3 endpoint URL \u2014 uses the minio private domain."
   },
   "AWS_S3_FORCE_PATH_STYLE": {
