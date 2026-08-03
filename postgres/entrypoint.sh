@@ -8,30 +8,53 @@ rm -f /var/lib/postgresql/data/pgdata/postmaster.pid 2>/dev/null
 
 export PGDATA=/var/lib/postgresql/data/pgdata
 
-# Start postgres in background
-docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf -c data_directory=/var/lib/postgresql/data/pgdata &
+# Ensure Postgres listens on all interfaces so Railway private networking can reach it.
+# Allow connections from the Railway private network (10.0.0.0/8) using md5 auth.
+cat >> /etc/postgresql/pg_hba.conf <<'HBA'
+host  all  all  10.0.0.0/8  md5
+host  all  all  127.0.0.1/32  trust
+host  all  all  ::1/128  trust
+HBA
+
+# Start postgres in background, forcing listen on all interfaces.
+docker-entrypoint.sh postgres \
+  -c config_file=/etc/postgresql/postgresql.conf \
+  -c data_directory=/var/lib/postgresql/data/pgdata \
+  -c listen_addresses='*' &
 PG_PID=$!
 
 # Wait for postgres to be ready
+wait_for_ready() {
+  for i in $(seq 1 60); do
+    if su postgres -c "pg_isready -h 127.0.0.1 -p 5432" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 1
+  done
+  return 1
+}
+
 echo "Waiting for postgres to start..."
-for i in $(seq 1 30); do
-  if su postgres -c "pg_isready -h 127.0.0.1 -p 5432" 2>/dev/null; then
-    echo "Postgres is ready."
-    break
-  fi
-  sleep 1
-done
+if ! wait_for_ready; then
+  echo "Postgres did not become ready in time." >&2
+  kill $PG_PID 2>/dev/null || true
+  wait $PG_PID 2>/dev/null || true
+  exit 1
+fi
+echo "Postgres is ready."
 
 # Grant permissions on all supabase schemas to postgres user.
-# Each statement runs in its own transaction with exception handling
-# so one failure (e.g. pgbouncer) doesn't roll back the others.
+# Connect as postgres (default superuser in the supabase/postgres image)
+# and ensure it has SUPERUSER plus the _realtime schema exists.
 echo "Granting schema permissions..."
-# Connect as supabase_admin (the actual superuser in supabase/postgres image)
-# to elevate the postgres role and grant schema permissions.
-su postgres -c "psql -h 127.0.0.1 -U supabase_admin -d postgres" <<'SQL'
+su postgres -c "psql -h 127.0.0.1 -U postgres -d postgres" <<'SQL' || true
 -- Make postgres a SUPERUSER so it can run migrations on all schemas
 ALTER ROLE postgres WITH SUPERUSER;
--- Ensure _realtime schema exists (used by supabase/realtime)
+-- Ensure schemas exist for supabase service migrations
+CREATE SCHEMA IF NOT EXISTS auth;
+GRANT ALL ON SCHEMA auth TO postgres;
+CREATE SCHEMA IF NOT EXISTS storage;
+GRANT ALL ON SCHEMA storage TO postgres;
 CREATE SCHEMA IF NOT EXISTS _realtime;
 GRANT ALL ON SCHEMA _realtime TO postgres;
 SQL

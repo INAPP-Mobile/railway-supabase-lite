@@ -12,7 +12,7 @@ cat > /tmp/kong.yml <<EOF
 _format_version: "2.1"
 services:
   - name: health
-    url: http://127.0.0.1:8000
+    url: http://127.0.0.1:${PORT:-8000}
     routes:
       - name: health-route
         paths: ["/health"]
@@ -58,7 +58,7 @@ EOF
 
 export KONG_DATABASE=off
 export KONG_DECLARATIVE_CONFIG=/tmp/kong.yml
-export KONG_PROXY_LISTEN="0.0.0.0:8000"
+export KONG_PROXY_LISTEN="0.0.0.0:${PORT:-8000}"
 export KONG_ADMIN_LISTEN="0.0.0.0:8001"
 
 exec /docker-entrypoint.sh kong docker-start

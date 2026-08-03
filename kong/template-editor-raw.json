@@ -16,7 +16,7 @@
     "description": "Private domain for the storage service."
   },
   "KONG_PROXY_LISTEN": {
-    "value": "0.0.0.0:8000",
-    "description": "Kong proxy listen address and port."
+    "value": "0.0.0.0:${{PORT}}",
+    "description": "Kong proxy listen address and port. Uses Railway-injected PORT for health check compatibility."
   }
 }
