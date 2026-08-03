@@ -16,7 +16,7 @@
     "description": "PostgreSQL data directory under the volume mount."
   },
   "DATABASE_URL": {
-    "value": "postgresql://postgres:${{postgres.POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
+    "value": "postgresql://postgres:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
     "description": "Auto-constructed connection string for the Postgres service."
   }
 }

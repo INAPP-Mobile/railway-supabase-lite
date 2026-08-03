@@ -29,7 +29,7 @@
   },
   "API_EXTERNAL_URL": {
     "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
-    "description": "Public URL of the Kong gateway \u2014 external-facing API URL for GoTrue."
+    "description": "Public URL of the Kong gateway — external-facing API URL for GoTrue."
   },
   "GOTRUE_SITE_URL": {
     "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
@@ -57,7 +57,7 @@
   },
   "ANON_KEY": {
     "value": "",
-    "description": "Public client API key \u2014 JWT signed by JWT_SECRET. Must be provided by user."
+    "description": "Public client API key — JWT signed by JWT_SECRET. Must be provided by user."
   },
   "SERVICE_ROLE_KEY": {
     "value": "",
