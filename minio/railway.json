@@ -11,7 +11,7 @@
     "healthcheckTimeout": 60,
     "restartPolicyType": "on_failure",
     "restartPolicyMaxRetries": 10,
-    "startCommand": "minio server /data --console-address :9001",
+    "startCommand": "minio server /data --address 0.0.0.0:9000 --console-address 0.0.0.0:9001",
     "volumeMounts": [
       {
         "name": "minio-data",
