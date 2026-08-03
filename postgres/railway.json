@@ -14,7 +14,7 @@
         "mountPath": "/var/lib/postgresql"
       }
     ],
-    "startCommand": "/bin/bash -c \"mkdir -p /var/lib/postgresql/data/pgdata && chown -R postgres:postgres /var/lib/postgresql /var/lib/postgresql/data 2>/dev/null; export PGDATA=/var/lib/postgresql/data/pgdata && exec docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf -c data_directory=/var/lib/postgresql/data/pgdata\"",
+    "startCommand": "/bin/bash -c \"mkdir -p /var/lib/postgresql/data/pgdata && chown -R postgres:postgres /var/lib/postgresql /var/lib/postgresql/data 2>/dev/null; rm -f /var/lib/postgresql/data/pgdata/postmaster.pid 2>/dev/null; export PGDATA=/var/lib/postgresql/data/pgdata && exec docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf -c data_directory=/var/lib/postgresql/data/pgdata\"",
     "healthcheckTimeout": 300
   }
 }
