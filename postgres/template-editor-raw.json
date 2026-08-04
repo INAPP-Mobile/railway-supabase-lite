@@ -1,22 +1,26 @@
 {
   "POSTGRES_USER": {
     "value": "postgres",
-    "description": "PostgreSQL superuser username."
+    "description": "PostgreSQL superuser username. Change to harden the default account."
   },
   "POSTGRES_PASSWORD": {
     "value": "${{secret(32)}}",
-    "description": "Master DB password. Referenced by all consumer services."
+    "description": "Master database password — auto-generated at deploy time. Referenced by all Supabase services (auth, rest, realtime, storage) via ${{postgres.POSTGRES_PASSWORD}}."
   },
   "POSTGRES_DB": {
     "value": "postgres",
-    "description": "Default PostgreSQL database name."
+    "description": "Name of the default database created on first boot. All Supabase schemas (auth, storage, _realtime, public) are created inside this database."
+  },
+  "POSTGRES_PORT": {
+    "value": "5432",
+    "description": "Port PostgreSQL listens on inside the container. Must stay 5432 — all other services reference this port via private networking."
   },
   "PGDATA": {
     "value": "/var/lib/postgresql/data/pgdata",
-    "description": "PostgreSQL data directory under the volume mount."
+    "description": "PostgreSQL data directory, placed under the Railway persistent volume mount (/var/lib/postgresql/data). Changing this after first boot will orphan existing data."
   },
   "DATABASE_URL": {
-    "value": "postgresql://postgres:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
-    "description": "Auto-constructed connection string for the Postgres service."
+    "value": "postgresql://${{POSTGRES_USER}}:***@${{RAILWAY_PRIVATE_DOMAIN}}:${{POSTGRES_PORT}}/${{POSTGRES_DB}}",
+    "description": "Self-referencing connection string. Consumed by the postgres service itself and referenced by dependent services as ${{postgres.DATABASE_URL}}."
   }
 }

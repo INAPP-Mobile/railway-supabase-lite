@@ -1,10 +1,10 @@
 {
   "MINIO_ROOT_USER": {
     "value": "minioadmin",
-    "description": "MinIO root username."
+    "description": "MinIO root (admin) username. Referenced by the storage service as AWS_ACCESS_KEY_ID via ${{minio.MINIO_ROOT_USER}}."
   },
   "MINIO_ROOT_PASSWORD": {
     "value": "${{secret(32)}}",
-    "description": "MinIO root password. Referenced by storage-api as AWS_SECRET_ACCESS_KEY."
+    "description": "MinIO root password — auto-generated at deploy time. Referenced by the storage service as AWS_SECRET_ACCESS_KEY via ${{minio.MINIO_ROOT_PASSWORD}}."
   }
 }

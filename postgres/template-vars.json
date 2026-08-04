@@ -3,7 +3,7 @@
     {
       "name": "POSTGRES_PASSWORD",
       "defaultValue": "${{secret(32)}}",
-      "description": "Master DB password referenced by all services. Must be non-empty.",
+      "description": "Master database password — auto-generated. Referenced by all Supabase services via ${{postgres.POSTGRES_PASSWORD}}.",
       "isOptional": false
     },
     {
@@ -15,13 +15,19 @@
     {
       "name": "POSTGRES_DB",
       "defaultValue": "postgres",
-      "description": "Default PostgreSQL database name.",
+      "description": "Default database name. All Supabase schemas live inside this database.",
+      "isOptional": true
+    },
+    {
+      "name": "POSTGRES_PORT",
+      "defaultValue": "5432",
+      "description": "PostgreSQL listen port. Keep 5432 — all consumer services reference this port.",
       "isOptional": true
     },
     {
       "name": "PGDATA",
       "defaultValue": "/var/lib/postgresql/data/pgdata",
-      "description": "PostgreSQL data directory under the volume mount.",
+      "description": "PostgreSQL data directory under the persistent volume mount. Do not change after first boot.",
       "isOptional": true
     }
   ]

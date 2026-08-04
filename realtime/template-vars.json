@@ -1,15 +1,21 @@
 {
   "variables": [
     {
+      "name": "SECRET_KEY_BASE",
+      "defaultValue": "${{secret(64)}}",
+      "description": "Elixir secret key base for crypto operations. Auto-generated.",
+      "isOptional": false
+    },
+    {
       "name": "ENABLE_TAILSCALE",
       "defaultValue": "false",
-      "description": "Whether to enable Tailscale networking.",
+      "description": "Enable Tailscale networking for clustering. Set to false for Railway.",
       "isOptional": true
     },
     {
       "name": "DNS_NODES",
       "defaultValue": "",
-      "description": "DNS nodes for clustering.",
+      "description": "DNS node names for Erlang clustering. Leave empty for single-node deployment.",
       "isOptional": true
     }
   ]

@@ -1,67 +1,71 @@
 {
   "GOTRUE_API_HOST": {
     "value": "0.0.0.0",
-    "description": "Bind address for the GoTrue API server."
+    "description": "Bind address for the GoTrue (Supabase Auth) API server. 0.0.0.0 binds all interfaces so Railway's proxy can reach it."
   },
   "GOTRUE_API_PORT": {
     "value": "${{PORT}}",
-    "description": "Listen port for GoTrue API. Uses Railway-injected PORT for health check compatibility."
+    "description": "Listen port for GoTrue API. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it."
   },
   "GOTRUE_DB_DRIVER": {
     "value": "postgres",
-    "description": "Database driver for GoTrue."
+    "description": "Database driver — always postgres."
   },
   "GOTRUE_DB_DATABASE_URL": {
-    "value": "postgres://postgres:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/postgres?search_path=auth",
-    "description": "PostgreSQL connection string for GoTrue. Uses private networking."
+    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth",
+    "description": "PostgreSQL connection string for GoTrue. Uses private networking and references postgres service vars. The *** is auto-resolved by Railway to the actual password."
+  },
+  "DATABASE_URL": {
+    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
+    "description": "Raw PostgreSQL connection string (without search_path). Available for migrations and tooling."
   },
   "JWT_SECRET": {
     "value": "${{secret(64)}}",
-    "description": "HS256 secret shared across all Supabase services for signing and verifying JWTs."
+    "description": "HS256 secret used to sign and verify all Supabase JWTs. Auto-generated 64-char secret. Referenced by rest, realtime, storage, and kong via ${{auth.JWT_SECRET}}."
   },
   "GOTRUE_JWT_SECRET": {
     "value": "${{JWT_SECRET}}",
-    "description": "GoTrue JWT secret. Mirrors JWT_SECRET for the upstream image."
+    "description": "GoTrue-specific JWT secret. Mirrors JWT_SECRET within the same service."
   },
   "GOTRUE_JWT_EXP": {
     "value": "3600",
-    "description": "JWT expiration time in seconds."
+    "description": "JWT expiration time in seconds (3600 = 1 hour)."
   },
   "API_EXTERNAL_URL": {
     "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
-    "description": "Public URL of the Kong gateway \u2014 external-facing API URL for GoTrue."
+    "description": "External-facing API URL. Points to the Kong gateway's public domain so OAuth redirects work correctly."
   },
   "GOTRUE_SITE_URL": {
     "value": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}",
-    "description": "Site URL for redirect flows. Uses Kong public domain."
+    "description": "Site URL for auth redirect flows. Points to the Kong gateway public domain."
   },
   "GOTRUE_URI_ALLOW_LIST": {
     "value": "",
-    "description": "Comma-separated list of allowed redirect URIs."
+    "description": "Comma-separated list of additional allowed redirect URIs for OAuth flows. Leave empty to allow only the site URL."
   },
   "GOTRUE_EXTERNAL_EMAIL_ENABLED": {
     "value": "true",
-    "description": "Enable external email provider support."
+    "description": "Enable external email provider support. Set to false to disable email auth."
   },
   "GOTRUE_MAILER_AUTOCONFIRM": {
     "value": "true",
-    "description": "Auto-confirm user emails on signup (development mode)."
+    "description": "Auto-confirm user emails on signup (development mode). Set to false in production to require email verification."
   },
   "GOTRUE_SMTP_HOST": {
     "value": "",
-    "description": "SMTP host for email sending (empty for no email)."
+    "description": "SMTP server host for sending auth emails. Leave empty to disable email sending (emails will not be sent). Example: smtp.gmail.com"
   },
   "GOTRUE_SMTP_PORT": {
     "value": "",
-    "description": "SMTP port for email sending."
+    "description": "SMTP server port. Common: 587 (TLS), 465 (SSL), 25 (unencrypted). Leave empty if GOTRUE_SMTP_HOST is empty."
   },
   "ANON_KEY": {
     "value": "",
-    "description": "Public client API key \u2014 JWT signed by JWT_SECRET. Must be provided by user."
+    "description": "Public client API key — JWT signed by JWT_SECRET with role=anon. Used in client-side API calls. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET."
   },
   "SERVICE_ROLE_KEY": {
     "value": "",
-    "description": "Server-side key with full access. JWT signed by JWT_SECRET. Must be provided by user."
+    "description": "Server-side key with full database access — JWT signed by JWT_SECRET with role=service_role. Keep secret. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET."
   },
   "DASHBOARD_USERNAME": {
     "value": "supabase",
@@ -69,6 +73,6 @@
   },
   "DASHBOARD_PASSWORD": {
     "value": "${{secret(16)}}",
-    "description": "Password for admin dashboard access."
+    "description": "Password for admin dashboard access. Auto-generated."
   }
 }

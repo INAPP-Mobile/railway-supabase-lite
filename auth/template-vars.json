@@ -3,59 +3,59 @@
     {
       "name": "JWT_SECRET",
       "defaultValue": "${{secret(64)}}",
-      "description": "HS256 key that signs ANON_KEY and SERVICE_ROLE_KEY. Generate with: openssl rand -base64 32",
+      "description": "HS256 secret used to sign all Supabase JWTs. Auto-generated. Referenced by rest, realtime, storage via ${{auth.JWT_SECRET}}.",
       "isOptional": false
     },
     {
       "name": "ANON_KEY",
-      "description": "Public client API key \u2014 JWT signed by JWT_SECRET. View supabase.com/docs/guides/self-hosting#api-keys",
+      "description": "Public client API key — JWT signed by JWT_SECRET with role=anon. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET.",
       "isOptional": false
     },
     {
       "name": "SERVICE_ROLE_KEY",
-      "description": "Server-side key with full access \u2014 JWT signed by JWT_SECRET.",
+      "description": "Server-side key with full DB access — JWT signed by JWT_SECRET with role=service_role. Keep secret. Generate at https://supabase.com/docs/guides/self-hosting#api-keys.",
       "isOptional": false
     },
     {
       "name": "DASHBOARD_USERNAME",
       "defaultValue": "supabase",
-      "description": "Username for any admin dashboard access (if Studio were included).",
+      "description": "Username for admin dashboard access.",
       "isOptional": true
     },
     {
       "name": "DASHBOARD_PASSWORD",
       "defaultValue": "${{secret(16)}}",
-      "description": "Password for admin dashboard access.",
+      "description": "Password for admin dashboard access. Auto-generated.",
       "isOptional": true
     },
     {
       "name": "GOTRUE_SMTP_HOST",
       "defaultValue": "",
-      "description": "SMTP host for email sending (empty for no email).",
+      "description": "SMTP server host for sending auth emails. Leave empty to disable email. Example: smtp.gmail.com",
       "isOptional": true
     },
     {
       "name": "GOTRUE_SMTP_PORT",
       "defaultValue": "",
-      "description": "SMTP port for email sending.",
+      "description": "SMTP server port (587 for TLS, 465 for SSL). Leave empty if SMTP host is empty.",
       "isOptional": true
     },
     {
       "name": "GOTRUE_MAILER_AUTOCONFIRM",
       "defaultValue": "true",
-      "description": "Auto-confirm user emails on signup (dev mode).",
+      "description": "Auto-confirm user emails on signup (dev mode). Set to false in production.",
       "isOptional": true
     },
     {
       "name": "GOTRUE_EXTERNAL_EMAIL_ENABLED",
       "defaultValue": "true",
-      "description": "Enable external email provider support.",
+      "description": "Enable external email provider support. Set to false to disable email auth.",
       "isOptional": true
     },
     {
       "name": "GOTRUE_URI_ALLOW_LIST",
       "defaultValue": "",
-      "description": "Comma-separated list of allowed redirect URIs.",
+      "description": "Comma-separated additional redirect URIs for OAuth. Leave empty to allow only the site URL.",
       "isOptional": true
     }
   ]

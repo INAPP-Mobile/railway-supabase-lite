@@ -1,58 +1,62 @@
 {
   "ANON_KEY": {
     "value": "${{auth.ANON_KEY}}",
-    "description": "Public anon JWT \u2014 references the auth service ANON_KEY."
+    "description": "Public anon JWT. References the auth service's ANON_KEY so client-side storage calls are authenticated."
   },
   "SERVICE_ROLE_KEY": {
     "value": "${{auth.SERVICE_ROLE_KEY}}",
-    "description": "Server-side full-access key \u2014 references the auth service SERVICE_ROLE_KEY."
+    "description": "Server-side full-access key. References the auth service's SERVICE_ROLE_KEY for admin storage operations."
   },
   "PGRST_JWT_SECRET": {
     "value": "${{auth.JWT_SECRET}}",
-    "description": "HS256 secret for JWT verification \u2014 references the auth service JWT_SECRET."
+    "description": "HS256 secret for JWT verification. References the auth service's JWT_SECRET."
   },
   "DATABASE_URL": {
-    "value": "postgres://postgres:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/postgres?search_path=storage",
-    "description": "PostgreSQL connection for storage API \u2014 uses private networking."
+    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=storage",
+    "description": "PostgreSQL connection string for storage API. Uses private networking and references postgres service vars."
   },
   "FILE_SIZE_LIMIT": {
     "value": "52428800",
-    "description": "Maximum file upload size in bytes (50MB)."
+    "description": "Maximum file upload size in bytes (52428800 = 50 MB). Increase for larger file support."
   },
   "STORAGE_BACKEND": {
     "value": "s3",
-    "description": "Storage backend type."
+    "description": "Storage backend type. 's3' uses MinIO (S3-compatible). 'file' uses local disk (not recommended for Railway)."
   },
   "FILE_STORAGE_BACKEND_PATH": {
     "value": "/tmp",
-    "description": "Temporary path for file processing."
+    "description": "Temporary path for file processing before upload to S3."
   },
   "GLOBAL_S3_BUCKET": {
     "value": "supabase-storage",
-    "description": "Default S3 bucket name for storage."
+    "description": "Default S3 bucket name. The bucket is created automatically on first storage API startup if it does not exist."
   },
   "AWS_ACCESS_KEY_ID": {
     "value": "${{minio.MINIO_ROOT_USER}}",
-    "description": "S3 access key \u2014 references the minio service MINIO_ROOT_USER."
+    "description": "S3 access key. References the minio service's MINIO_ROOT_USER."
   },
   "AWS_SECRET_ACCESS_KEY": {
     "value": "${{minio.MINIO_ROOT_PASSWORD}}",
-    "description": "S3 secret key \u2014 references the minio service MINIO_ROOT_PASSWORD."
+    "description": "S3 secret key. References the minio service's MINIO_ROOT_PASSWORD (auto-generated)."
   },
   "AWS_REGION": {
     "value": "us-east-1",
-    "description": "AWS region for S3."
+    "description": "AWS region for S3. MinIO ignores this but the storage API requires a non-empty value."
+  },
+  "REGION": {
+    "value": "us-east-1",
+    "description": "Region for the storage API. Must match AWS_REGION."
   },
   "AWS_S3_ENDPOINT": {
     "value": "http://${{minio.RAILWAY_PRIVATE_DOMAIN}}:9000",
-    "description": "S3 endpoint URL \u2014 uses the minio private domain."
+    "description": "S3 endpoint URL. Points to MinIO via Railway private networking on port 9000."
   },
   "AWS_S3_FORCE_PATH_STYLE": {
     "value": "true",
-    "description": "Force S3 path-style addressing for MinIO compatibility."
+    "description": "Force path-style S3 addressing. Required for MinIO compatibility (not using virtual-host-style)."
   },
   "ENABLE_IMAGE_TRANSFORMATION": {
     "value": "false",
-    "description": "Disable image transformation to save RAM."
+    "description": "Enable image transformation (resize, optimize). Set to false to save RAM on Railway."
   }
 }

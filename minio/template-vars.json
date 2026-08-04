@@ -3,13 +3,13 @@
     {
       "name": "MINIO_ROOT_PASSWORD",
       "defaultValue": "${{secret(32)}}",
-      "description": "MinIO root password. Referenced by storage-api for S3 access.",
+      "description": "MinIO root password — auto-generated. Referenced by storage service as AWS_SECRET_ACCESS_KEY.",
       "isOptional": false
     },
     {
       "name": "MINIO_ROOT_USER",
       "defaultValue": "minioadmin",
-      "description": "MinIO root username.",
+      "description": "MinIO root username. Referenced by storage service as AWS_ACCESS_KEY_ID.",
       "isOptional": true
     }
   ]

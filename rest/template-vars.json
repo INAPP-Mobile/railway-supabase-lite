@@ -3,13 +3,13 @@
     {
       "name": "PGRST_DB_SCHEMAS",
       "defaultValue": "public,storage,graphql_public",
-      "description": "Comma-separated list of schemas to expose via REST API.",
+      "description": "Comma-separated schemas to expose via REST API. public = your tables, storage = file management, graphql_public = GraphQL.",
       "isOptional": true
     },
     {
       "name": "PGRST_DB_ANON_ROLE",
       "defaultValue": "anon",
-      "description": "Database role for anonymous (unauthenticated) requests.",
+      "description": "Database role for anonymous requests. Must match the role in PostgreSQL init scripts.",
       "isOptional": true
     }
   ]
