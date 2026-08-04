@@ -12,11 +12,11 @@
     "description": "Database driver — always postgres."
   },
   "GOTRUE_DB_DATABASE_URL": {
-    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth",
+    "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth",
     "description": "PostgreSQL connection string for GoTrue. Uses private networking and references postgres service vars. The *** is auto-resolved by Railway to the actual password."
   },
   "DATABASE_URL": {
-    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
+    "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
     "description": "Raw PostgreSQL connection string (without search_path). Available for migrations and tooling."
   },
   "JWT_SECRET": {

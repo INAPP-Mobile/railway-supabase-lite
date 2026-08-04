@@ -1,6 +1,6 @@
 {
   "PGRST_DB_URI": {
-    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
+    "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
     "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars. The *** is auto-resolved to the real password by Railway."
   },
   "PGRST_DB_SCHEMAS": {

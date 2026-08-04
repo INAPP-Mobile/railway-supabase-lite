@@ -12,7 +12,7 @@
     "description": "HS256 secret for JWT verification. References the auth service's JWT_SECRET."
   },
   "DATABASE_URL": {
-    "value": "postgres://postgres:***@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=storage",
+    "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=storage",
     "description": "PostgreSQL connection string for storage API. Uses private networking and references postgres service vars."
   },
   "FILE_SIZE_LIMIT": {
