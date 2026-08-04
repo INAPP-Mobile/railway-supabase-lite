@@ -56,8 +56,8 @@
     "description": "SMTP server host for sending auth emails. Leave empty to disable email sending (emails will not be sent). Example: smtp.gmail.com"
   },
   "GOTRUE_SMTP_PORT": {
-    "value": "",
-    "description": "SMTP server port. Common: 587 (TLS), 465 (SSL), 25 (unencrypted). Leave empty if GOTRUE_SMTP_HOST is empty."
+    "value": "587",
+    "description": "SMTP server port. Must be numeric (GoTrue requires an integer). Common: 587 (TLS), 465 (SSL), 25 (unencrypted). Ignored when GOTRUE_SMTP_HOST is empty."
   },
   "ANON_KEY": {
     "value": "",

@@ -48,8 +48,8 @@
     "description": "Region for the storage API. Must match AWS_REGION."
   },
   "AWS_S3_ENDPOINT": {
-    "value": "http://${{minio.RAILWAY_PRIVATE_DOMAIN}}:9000",
-    "description": "S3 endpoint URL. Points to MinIO via Railway private networking on port 9000."
+    "value": "http://${{minio.RAILWAY_PRIVATE_DOMAIN}}:8080",
+    "description": "S3 endpoint URL. Points to MinIO via Railway private networking on port 8080 (Railway-injected PORT)."
   },
   "AWS_S3_FORCE_PATH_STYLE": {
     "value": "true",
