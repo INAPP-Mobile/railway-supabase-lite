@@ -1,9 +1,4 @@
 {
-  "$schema": "https://railway.com/railway.schema.json",
-  "build": {
-    "builder": "dockerfile",
-    "dockerfilePath": "Dockerfile"
-  },
   "deploy": {
     "numReplicas": 1,
     "port": 8080,
@@ -18,5 +13,6 @@
         "mountPath": "/data"
       }
     ]
-  }
+  },
+  "$schema": "https://railway.com/railway.schema.json"
 }
