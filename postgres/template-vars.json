@@ -1,34 +1,40 @@
 {
   "variables": [
     {
-      "name": "POSTGRES_PASSWORD",
-      "defaultValue": "${{secret(32)}}",
-      "description": "Master database password — auto-generated. Referenced by all Supabase services via ${{postgres.POSTGRES_PASSWORD}}.",
-      "isOptional": false
+      "name": "POSTGRES_USER",
+      "description": "PostgreSQL superuser username. Change to harden the default account.",
+      "isOptional": true,
+      "defaultValue": "postgres"
     },
     {
-      "name": "POSTGRES_USER",
-      "defaultValue": "postgres",
-      "description": "PostgreSQL superuser username.",
-      "isOptional": true
+      "name": "POSTGRES_PASSWORD",
+      "description": "Master database password \u2014 auto-generated at deploy time. Referenced by all Supabase services (auth, rest, realtime, storage) via ${{postgres.POSTGRES_PASSWORD}}.",
+      "isOptional": true,
+      "defaultValue": "${{secret(32)}}"
     },
     {
       "name": "POSTGRES_DB",
-      "defaultValue": "postgres",
-      "description": "Default database name. All Supabase schemas live inside this database.",
-      "isOptional": true
+      "description": "Name of the default database created on first boot. All Supabase schemas (auth, storage, _realtime, public) are created inside this database.",
+      "isOptional": true,
+      "defaultValue": "postgres"
     },
     {
       "name": "POSTGRES_PORT",
-      "defaultValue": "5432",
-      "description": "PostgreSQL listen port. Keep 5432 — all consumer services reference this port.",
-      "isOptional": true
+      "description": "Port PostgreSQL listens on inside the container. Must stay 5432 \u2014 all other services reference this port via private networking.",
+      "isOptional": true,
+      "defaultValue": "5432"
     },
     {
       "name": "PGDATA",
-      "defaultValue": "/var/lib/postgresql/data/pgdata",
-      "description": "PostgreSQL data directory under the persistent volume mount. Do not change after first boot.",
-      "isOptional": true
+      "description": "PostgreSQL data directory, placed under the Railway persistent volume mount (/var/lib/postgresql/data). Changing this after first boot will orphan existing data.",
+      "isOptional": true,
+      "defaultValue": "/var/lib/postgresql/data/pgdata"
+    },
+    {
+      "name": "DATABASE_URL",
+      "description": "Self-referencing connection string. Consumed by the postgres service itself and referenced by dependent services as ${{postgres.DATABASE_URL}}.",
+      "isOptional": true,
+      "defaultValue": "postgresql://${{POSTGRES_USER}}:***@${{RAILWAY_PRIVATE_DOMAIN}}:${{POSTGRES_PORT}}/${{POSTGRES_DB}}"
     }
   ]
 }

@@ -1,62 +1,113 @@
 {
   "variables": [
     {
+      "name": "GOTRUE_API_HOST",
+      "description": "Bind address for the GoTrue (Supabase Auth) API server. 0.0.0.0 binds all interfaces so Railway's proxy can reach it.",
+      "isOptional": true,
+      "defaultValue": "0.0.0.0"
+    },
+    {
+      "name": "GOTRUE_API_PORT",
+      "description": "Listen port for GoTrue API. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it.",
+      "isOptional": true,
+      "defaultValue": "${{PORT}}"
+    },
+    {
+      "name": "GOTRUE_DB_DRIVER",
+      "description": "Database driver \u2014 always postgres.",
+      "isOptional": true,
+      "defaultValue": "postgres"
+    },
+    {
+      "name": "GOTRUE_DB_DATABASE_URL",
+      "description": "PostgreSQL connection string for GoTrue. Uses private networking and references postgres service vars. The *** is auto-resolved by Railway to the actual password.",
+      "isOptional": true,
+      "defaultValue": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth"
+    },
+    {
+      "name": "DATABASE_URL",
+      "description": "Raw PostgreSQL connection string (without search_path). Available for migrations and tooling.",
+      "isOptional": true,
+      "defaultValue": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}"
+    },
+    {
       "name": "JWT_SECRET",
-      "defaultValue": "${{secret(64)}}",
-      "description": "HS256 secret used to sign all Supabase JWTs. Auto-generated. Referenced by rest, realtime, storage via ${{auth.JWT_SECRET}}.",
-      "isOptional": false
+      "description": "HS256 secret used to sign and verify all Supabase JWTs. Auto-generated 64-char secret. Referenced by rest, realtime, storage, and kong via ${{auth.JWT_SECRET}}.",
+      "isOptional": true,
+      "defaultValue": "${{secret(64)}}"
     },
     {
-      "name": "ANON_KEY",
-      "description": "Public client API key — JWT signed by JWT_SECRET with role=anon. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET.",
-      "isOptional": false
+      "name": "GOTRUE_JWT_SECRET",
+      "description": "GoTrue-specific JWT secret. Mirrors JWT_SECRET within the same service.",
+      "isOptional": true,
+      "defaultValue": "${{JWT_SECRET}}"
     },
     {
-      "name": "SERVICE_ROLE_KEY",
-      "description": "Server-side key with full DB access — JWT signed by JWT_SECRET with role=service_role. Keep secret. Generate at https://supabase.com/docs/guides/self-hosting#api-keys.",
-      "isOptional": false
+      "name": "GOTRUE_JWT_EXP",
+      "description": "JWT expiration time in seconds (3600 = 1 hour).",
+      "isOptional": true,
+      "defaultValue": "3600"
     },
     {
-      "name": "DASHBOARD_USERNAME",
-      "defaultValue": "supabase",
-      "description": "Username for admin dashboard access.",
-      "isOptional": true
+      "name": "API_EXTERNAL_URL",
+      "description": "External-facing API URL. Points to the Kong gateway's public domain so OAuth redirects work correctly.",
+      "isOptional": true,
+      "defaultValue": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}"
     },
     {
-      "name": "DASHBOARD_PASSWORD",
-      "defaultValue": "${{secret(16)}}",
-      "description": "Password for admin dashboard access. Auto-generated.",
-      "isOptional": true
+      "name": "GOTRUE_SITE_URL",
+      "description": "Site URL for auth redirect flows. Points to the Kong gateway public domain.",
+      "isOptional": true,
+      "defaultValue": "https://${{kong.RAILWAY_PUBLIC_DOMAIN}}"
     },
     {
-      "name": "GOTRUE_SMTP_HOST",
-      "defaultValue": "",
-      "description": "SMTP server host for sending auth emails. Leave empty to disable email. Example: smtp.gmail.com",
-      "isOptional": true
-    },
-    {
-      "name": "GOTRUE_SMTP_PORT",
-      "defaultValue": "",
-      "description": "SMTP server port (587 for TLS, 465 for SSL). Leave empty if SMTP host is empty.",
-      "isOptional": true
-    },
-    {
-      "name": "GOTRUE_MAILER_AUTOCONFIRM",
-      "defaultValue": "true",
-      "description": "Auto-confirm user emails on signup (dev mode). Set to false in production.",
+      "name": "GOTRUE_URI_ALLOW_LIST",
+      "description": "Comma-separated list of additional allowed redirect URIs for OAuth flows. Leave empty to allow only the site URL.",
       "isOptional": true
     },
     {
       "name": "GOTRUE_EXTERNAL_EMAIL_ENABLED",
-      "defaultValue": "true",
       "description": "Enable external email provider support. Set to false to disable email auth.",
+      "isOptional": true,
+      "defaultValue": "true"
+    },
+    {
+      "name": "GOTRUE_MAILER_AUTOCONFIRM",
+      "description": "Auto-confirm user emails on signup (development mode). Set to false in production to require email verification.",
+      "isOptional": true,
+      "defaultValue": "true"
+    },
+    {
+      "name": "GOTRUE_SMTP_HOST",
+      "description": "SMTP server host for sending auth emails. Leave empty to disable email sending (emails will not be sent). Example: smtp.gmail.com",
       "isOptional": true
     },
     {
-      "name": "GOTRUE_URI_ALLOW_LIST",
-      "defaultValue": "",
-      "description": "Comma-separated additional redirect URIs for OAuth. Leave empty to allow only the site URL.",
+      "name": "GOTRUE_SMTP_PORT",
+      "description": "SMTP server port. Common: 587 (TLS), 465 (SSL), 25 (unencrypted). Leave empty if GOTRUE_SMTP_HOST is empty.",
       "isOptional": true
+    },
+    {
+      "name": "ANON_KEY",
+      "description": "Public client API key \u2014 JWT signed by JWT_SECRET with role=anon. Used in client-side API calls. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET.",
+      "isOptional": false
+    },
+    {
+      "name": "SERVICE_ROLE_KEY",
+      "description": "Server-side key with full database access \u2014 JWT signed by JWT_SECRET with role=service_role. Keep secret. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET.",
+      "isOptional": false
+    },
+    {
+      "name": "DASHBOARD_USERNAME",
+      "description": "Username for admin dashboard access (if Studio were included).",
+      "isOptional": true,
+      "defaultValue": "supabase"
+    },
+    {
+      "name": "DASHBOARD_PASSWORD",
+      "description": "Password for admin dashboard access. Auto-generated.",
+      "isOptional": true,
+      "defaultValue": "${{secret(16)}}"
     }
   ]
 }
