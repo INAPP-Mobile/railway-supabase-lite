@@ -18,5 +18,9 @@
   "KONG_PROXY_LISTEN": {
     "value": "0.0.0.0:${{PORT}}",
     "description": "Kong proxy listen address. Uses Railway-injected ${{PORT}} so health checks and external traffic can reach it."
+  },
+  "PORT": {
+    "value": "8080",
+    "description": "Railway-injected port. Kong proxy listens on this port."
   }
 }

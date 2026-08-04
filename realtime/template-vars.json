@@ -1,81 +1,80 @@
 {
-  "variables": [
-    {
-      "name": "APP_NAME",
-      "description": "Application name for the Realtime service. Required by the Elixir/Erlang app for node naming.",
-      "isOptional": true,
-      "defaultValue": "realtime"
-    },
-    {
-      "name": "DB_HOST",
-      "description": "PostgreSQL host via Railway private networking. References the postgres service's private domain.",
-      "isOptional": true,
-      "defaultValue": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}"
-    },
-    {
-      "name": "DB_PORT",
-      "description": "PostgreSQL port. References the postgres service's POSTGRES_PORT.",
-      "isOptional": true,
-      "defaultValue": "${{postgres.POSTGRES_PORT}}"
-    },
-    {
-      "name": "DB_USER",
-      "description": "PostgreSQL username. References the postgres service's POSTGRES_USER.",
-      "isOptional": true,
-      "defaultValue": "${{postgres.POSTGRES_USER}}"
-    },
-    {
-      "name": "DB_PASSWORD",
-      "description": "PostgreSQL password. References the postgres service's POSTGRES_PASSWORD.",
-      "isOptional": true,
-      "defaultValue": "${{postgres.POSTGRES_PASSWORD}}"
-    },
-    {
-      "name": "DB_NAME",
-      "description": "PostgreSQL database name. References the postgres service's POSTGRES_DB.",
-      "isOptional": true,
-      "defaultValue": "${{postgres.POSTGRES_DB}}"
-    },
-    {
-      "name": "DB_AFTER_CONNECT_QUERY",
-      "description": "SQL executed after connecting to PostgreSQL. Sets the search path to the _realtime schema.",
-      "isOptional": true,
-      "defaultValue": "SET search_path TO _realtime"
-    },
-    {
-      "name": "JWT_SECRET",
-      "description": "JWT secret for Realtime. References the auth service's JWT_SECRET so all services share the same signing key.",
-      "isOptional": true,
-      "defaultValue": "${{auth.JWT_SECRET}}"
-    },
-    {
-      "name": "API_JWT_SECRET",
-      "description": "JWT secret for the Realtime API. Mirrors JWT_SECRET from the auth service.",
-      "isOptional": true,
-      "defaultValue": "${{auth.JWT_SECRET}}"
-    },
-    {
-      "name": "SECRET_KEY_BASE",
-      "description": "Elixir secret key base for crypto operations (session signing, CSRF tokens). Auto-generated 64-char secret.",
-      "isOptional": true,
-      "defaultValue": "${{secret(64)}}"
-    },
-    {
-      "name": "ERL_AFLAGS",
-      "description": "Erlang distribution flags. inet_tcp ensures standard TCP clustering works on Railway.",
-      "isOptional": true,
-      "defaultValue": "-proto_dist inet_tcp"
-    },
-    {
-      "name": "ENABLE_TAILSCALE",
-      "description": "Enable Tailscale-based clustering. Set to false for Railway (uses standard TCP).",
-      "isOptional": true,
-      "defaultValue": "false"
-    },
-    {
-      "name": "DNS_NODES",
-      "description": "DNS node names for Erlang clustering. Leave empty for single-node deployment.",
-      "isOptional": true
-    }
-  ]
+  "APP_NAME": {
+    "name": "APP_NAME",
+    "defaultValue": "realtime",
+    "description": "Application name for the Realtime service. Required by the Elixir/Erlang app for node naming.",
+    "isOptional": false
+  },
+  "DB_HOST": {
+    "name": "DB_HOST",
+    "defaultValue": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "PostgreSQL host via Railway private networking. References the postgres service's private domain.",
+    "isOptional": false
+  },
+  "DB_PORT": {
+    "name": "DB_PORT",
+    "defaultValue": "${{postgres.POSTGRES_PORT}}",
+    "description": "PostgreSQL port. References the postgres service's POSTGRES_PORT.",
+    "isOptional": false
+  },
+  "DB_USER": {
+    "name": "DB_USER",
+    "defaultValue": "${{postgres.POSTGRES_USER}}",
+    "description": "PostgreSQL username. References the postgres service's POSTGRES_USER.",
+    "isOptional": false
+  },
+  "DB_PASSWORD": {
+    "name": "DB_PASSWORD",
+    "defaultValue": "${{postgres.POSTGRES_PASSWORD}}",
+    "description": "PostgreSQL password. References the postgres service's POSTGRES_PASSWORD.",
+    "isOptional": false
+  },
+  "DB_NAME": {
+    "name": "DB_NAME",
+    "defaultValue": "${{postgres.POSTGRES_DB}}",
+    "description": "PostgreSQL database name. References the postgres service's POSTGRES_DB.",
+    "isOptional": false
+  },
+  "DB_AFTER_CONNECT_QUERY": {
+    "name": "DB_AFTER_CONNECT_QUERY",
+    "defaultValue": "SET search_path TO _realtime",
+    "description": "SQL executed after connecting to PostgreSQL. Sets the search path to the _realtime schema.",
+    "isOptional": false
+  },
+  "JWT_SECRET": {
+    "name": "JWT_SECRET",
+    "defaultValue": "${{auth.JWT_SECRET}}",
+    "description": "JWT secret for Realtime. References the auth service's JWT_SECRET so all services share the same signing key.",
+    "isOptional": false
+  },
+  "API_JWT_SECRET": {
+    "name": "API_JWT_SECRET",
+    "defaultValue": "${{auth.JWT_SECRET}}",
+    "description": "JWT secret for the Realtime API. Mirrors JWT_SECRET from the auth service.",
+    "isOptional": false
+  },
+  "SECRET_KEY_BASE": {
+    "name": "SECRET_KEY_BASE",
+    "defaultValue": "${{secret(64)}}",
+    "description": "Elixir secret key base for crypto operations (session signing, CSRF tokens). Auto-generated 64-char secret.",
+    "isOptional": false
+  },
+  "ERL_AFLAGS": {
+    "name": "ERL_AFLAGS",
+    "defaultValue": "-proto_dist inet_tcp",
+    "description": "Erlang distribution flags. inet_tcp ensures standard TCP clustering works on Railway.",
+    "isOptional": false
+  },
+  "ENABLE_TAILSCALE": {
+    "name": "ENABLE_TAILSCALE",
+    "defaultValue": "false",
+    "description": "Enable Tailscale-based clustering. Set to false for Railway (uses standard TCP).",
+    "isOptional": false
+  },
+  "DNS_NODES": {
+    "name": "DNS_NODES",
+    "defaultValue": "",
+    "description": "DNS node names for Erlang clustering. Leave empty for single-node deployment.",
+    "isOptional": false
+  }
 }

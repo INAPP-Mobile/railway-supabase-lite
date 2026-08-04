@@ -5,10 +5,14 @@
   },
   "MINIO_ROOT_PASSWORD": {
     "value": "${{secret(32)}}",
-    "description": "MinIO root password — auto-generated at deploy time. Referenced by the storage service as AWS_SECRET_ACCESS_KEY via ${{minio.MINIO_ROOT_PASSWORD}}."
+    "description": "MinIO root password \u2014 auto-generated at deploy time. Referenced by the storage service as AWS_SECRET_ACCESS_KEY via ${{minio.MINIO_ROOT_PASSWORD}}."
   },
   "MINIO_ADDRESS": {
     "value": "0.0.0.0:8080",
     "description": "MinIO listen address. Port 8080 matches Railway's injected PORT so health checks can reach it."
+  },
+  "PORT": {
+    "value": "8080",
+    "description": "Railway-injected port. Minio API listens on this port."
   }
 }

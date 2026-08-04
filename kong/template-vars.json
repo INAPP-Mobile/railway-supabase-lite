@@ -1,34 +1,38 @@
 {
-  "variables": [
-    {
-      "name": "AUTH_HOST",
-      "description": "Private domain for the auth (GoTrue) service. Kong proxies /auth/v1/* requests here.",
-      "isOptional": true,
-      "defaultValue": "${{auth.RAILWAY_PRIVATE_DOMAIN}}"
-    },
-    {
-      "name": "REST_HOST",
-      "description": "Private domain for the rest (PostgREST) service. Kong proxies /rest/v1/* requests here.",
-      "isOptional": true,
-      "defaultValue": "${{rest.RAILWAY_PRIVATE_DOMAIN}}"
-    },
-    {
-      "name": "REALTIME_HOST",
-      "description": "Private domain for the realtime service. Kong proxies /realtime/v1/* requests here.",
-      "isOptional": true,
-      "defaultValue": "${{realtime.RAILWAY_PRIVATE_DOMAIN}}"
-    },
-    {
-      "name": "STORAGE_HOST",
-      "description": "Private domain for the storage service. Kong proxies /storage/v1/* requests here.",
-      "isOptional": true,
-      "defaultValue": "${{storage.RAILWAY_PRIVATE_DOMAIN}}"
-    },
-    {
-      "name": "KONG_PROXY_LISTEN",
-      "description": "Kong proxy listen address. Uses Railway-injected ${{PORT}} so health checks and external traffic can reach it.",
-      "isOptional": true,
-      "defaultValue": "0.0.0.0:${{PORT}}"
-    }
-  ]
+  "AUTH_HOST": {
+    "name": "AUTH_HOST",
+    "defaultValue": "${{auth.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Private domain for the auth (GoTrue) service. Kong proxies /auth/v1/* requests here.",
+    "isOptional": false
+  },
+  "REST_HOST": {
+    "name": "REST_HOST",
+    "defaultValue": "${{rest.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Private domain for the rest (PostgREST) service. Kong proxies /rest/v1/* requests here.",
+    "isOptional": false
+  },
+  "REALTIME_HOST": {
+    "name": "REALTIME_HOST",
+    "defaultValue": "${{realtime.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Private domain for the realtime service. Kong proxies /realtime/v1/* requests here.",
+    "isOptional": false
+  },
+  "STORAGE_HOST": {
+    "name": "STORAGE_HOST",
+    "defaultValue": "${{storage.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Private domain for the storage service. Kong proxies /storage/v1/* requests here.",
+    "isOptional": false
+  },
+  "KONG_PROXY_LISTEN": {
+    "name": "KONG_PROXY_LISTEN",
+    "defaultValue": "0.0.0.0:${{PORT}}",
+    "description": "Kong proxy listen address. Uses Railway-injected ${{PORT}} so health checks and external traffic can reach it.",
+    "isOptional": false
+  },
+  "PORT": {
+    "name": "PORT",
+    "defaultValue": "8080",
+    "description": "Railway-injected port. Kong proxy listens on this port.",
+    "isOptional": false
+  }
 }

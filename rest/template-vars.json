@@ -1,40 +1,38 @@
 {
-  "variables": [
-    {
-      "name": "PGRST_DB_URI",
-      "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars. The *** is auto-resolved to the real password by Railway.",
-      "isOptional": true,
-      "defaultValue": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}"
-    },
-    {
-      "name": "PGRST_DB_SCHEMAS",
-      "description": "Comma-separated list of PostgreSQL schemas to expose via the REST API. public = your tables, storage = file management, graphql_public = GraphQL support.",
-      "isOptional": true,
-      "defaultValue": "public,storage,graphql_public"
-    },
-    {
-      "name": "PGRST_DB_ANON_ROLE",
-      "description": "Database role used for anonymous (unauthenticated) requests. Must match the role created in PostgreSQL init scripts.",
-      "isOptional": true,
-      "defaultValue": "anon"
-    },
-    {
-      "name": "PGRST_DB_EXTRA_SEARCH_PATH",
-      "description": "Extra schema search path for PostgREST to find functions and types in the public schema.",
-      "isOptional": true,
-      "defaultValue": "public"
-    },
-    {
-      "name": "PGRST_JWT_SECRET",
-      "description": "HS256 secret for verifying JWTs. References the auth service's JWT_SECRET so all services share the same signing key.",
-      "isOptional": true,
-      "defaultValue": "${{auth.JWT_SECRET}}"
-    },
-    {
-      "name": "PGRST_SERVER_PORT",
-      "description": "PostgREST listen port. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it.",
-      "isOptional": true,
-      "defaultValue": "${{PORT}}"
-    }
-  ]
+  "PGRST_DB_URI": {
+    "name": "PGRST_DB_URI",
+    "defaultValue": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
+    "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars. The *** is auto-resolved to the real password by Railway.",
+    "isOptional": false
+  },
+  "PGRST_DB_SCHEMAS": {
+    "name": "PGRST_DB_SCHEMAS",
+    "defaultValue": "public,storage",
+    "description": "Comma-separated list of database schemas PostgREST exposes. graphql_public omitted (requires pg_graphql extension).",
+    "isOptional": false
+  },
+  "PGRST_DB_ANON_ROLE": {
+    "name": "PGRST_DB_ANON_ROLE",
+    "defaultValue": "anon",
+    "description": "Database role used for anonymous (unauthenticated) requests. Must match the role created in PostgreSQL init scripts.",
+    "isOptional": false
+  },
+  "PGRST_DB_EXTRA_SEARCH_PATH": {
+    "name": "PGRST_DB_EXTRA_SEARCH_PATH",
+    "defaultValue": "public",
+    "description": "Extra schema search path for PostgREST to find functions and types in the public schema.",
+    "isOptional": false
+  },
+  "PGRST_JWT_SECRET": {
+    "name": "PGRST_JWT_SECRET",
+    "defaultValue": "${{auth.JWT_SECRET}}",
+    "description": "HS256 secret for verifying JWTs. References the auth service's JWT_SECRET so all services share the same signing key.",
+    "isOptional": false
+  },
+  "PGRST_SERVER_PORT": {
+    "name": "PGRST_SERVER_PORT",
+    "defaultValue": "${{PORT}}",
+    "description": "PostgREST listen port. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it.",
+    "isOptional": false
+  }
 }

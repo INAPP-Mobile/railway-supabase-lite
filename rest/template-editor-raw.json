@@ -4,8 +4,8 @@
     "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars. The *** is auto-resolved to the real password by Railway."
   },
   "PGRST_DB_SCHEMAS": {
-    "value": "public,storage,graphql_public",
-    "description": "Comma-separated list of PostgreSQL schemas to expose via the REST API. public = your tables, storage = file management, graphql_public = GraphQL support."
+    "value": "public,storage",
+    "description": "Comma-separated list of database schemas PostgREST exposes. graphql_public omitted (requires pg_graphql extension)."
   },
   "PGRST_DB_ANON_ROLE": {
     "value": "anon",

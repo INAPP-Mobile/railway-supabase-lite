@@ -9,7 +9,7 @@
   },
   "GOTRUE_DB_DRIVER": {
     "value": "postgres",
-    "description": "Database driver — always postgres."
+    "description": "Database driver \u2014 always postgres."
   },
   "GOTRUE_DB_DATABASE_URL": {
     "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth",
@@ -20,8 +20,8 @@
     "description": "Raw PostgreSQL connection string (without search_path). Available for migrations and tooling."
   },
   "JWT_SECRET": {
-    "value": "${{secret(64)}}",
-    "description": "HS256 secret used to sign and verify all Supabase JWTs. Auto-generated 64-char secret. Referenced by rest, realtime, storage, and kong via ${{auth.JWT_SECRET}}."
+    "value": "super-secret-jwt-token-with-at-least-32-characters-long",
+    "description": "JWT secret used to sign API tokens. Default is the Supabase demo secret \u2014 change this and regenerate ANON_KEY/SERVICE_ROLE_KEY for production."
   },
   "GOTRUE_JWT_SECRET": {
     "value": "${{JWT_SECRET}}",
@@ -60,12 +60,12 @@
     "description": "SMTP server port. Must be numeric (GoTrue requires an integer). Common: 587 (TLS), 465 (SSL), 25 (unencrypted). Ignored when GOTRUE_SMTP_HOST is empty."
   },
   "ANON_KEY": {
-    "value": "",
-    "description": "Public client API key — JWT signed by JWT_SECRET with role=anon. Used in client-side API calls. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET."
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9.ZopqoUt20nEV9cklpv9e3yw3PVyZLmKs5qLD6nGL1SI",
+    "description": "Public client API key \u2014 JWT signed by JWT_SECRET with role=anon. Pre-computed for default JWT_SECRET; regenerate if you change JWT_SECRET."
   },
   "SERVICE_ROLE_KEY": {
-    "value": "",
-    "description": "Server-side key with full database access — JWT signed by JWT_SECRET with role=service_role. Keep secret. Generate at https://supabase.com/docs/guides/self-hosting#api-keys using your JWT_SECRET."
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.M2d2z4SFn5C7HlJlaSLfrzuYim9nbY_XI40uWFN3hEE",
+    "description": "Server-side key with full database access \u2014 JWT signed by JWT_SECRET with role=service_role. Pre-computed for default JWT_SECRET; regenerate if you change JWT_SECRET."
   },
   "DASHBOARD_USERNAME": {
     "value": "supabase",
