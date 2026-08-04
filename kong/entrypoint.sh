@@ -23,27 +23,27 @@ services:
           status_code: 200
           message: "OK"
   - name: auth
-    url: http://${SUPABASE_AUTH_HOST}:9999/verify
+    url: http://${SUPABASE_AUTH_HOST}:${PORT:-8080}/verify
     routes:
       - name: auth-route
         paths: ["/auth/v1/verify"]
   - name: auth-admin
-    url: http://${SUPABASE_AUTH_HOST}:9999/
+    url: http://${SUPABASE_AUTH_HOST}:${PORT:-8080}/
     routes:
       - name: auth-admin-route
         paths: ["/auth/v1/"]
   - name: rest
-    url: http://${SUPABASE_REST_HOST}:3000/
+    url: http://${SUPABASE_REST_HOST}:${PORT:-8080}/
     routes:
       - name: rest-route
         paths: ["/rest/v1/"]
   - name: realtime
-    url: http://${SUPABASE_REALTIME_HOST}:4000/socket/
+    url: http://${SUPABASE_REALTIME_HOST}:${PORT:-8080}/socket/
     routes:
       - name: realtime-route
         paths: ["/realtime/v1/"]
   - name: storage
-    url: http://${SUPABASE_STORAGE_HOST}:5000/
+    url: http://${SUPABASE_STORAGE_HOST}:${PORT:-8080}/
     routes:
       - name: storage-route
         paths: ["/storage/v1/"]
