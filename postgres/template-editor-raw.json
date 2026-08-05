@@ -20,7 +20,7 @@
     "description": "PostgreSQL data directory, placed under the Railway persistent volume mount (/var/lib/postgresql/data). Changing this after first boot will orphan existing data."
   },
   "DATABASE_URL": {
-    "value": "postgresql://${{POSTGRES_USER}}:***@${{RAILWAY_PRIVATE_DOMAIN}}:${{POSTGRES_PORT}}/${{POSTGRES_DB}}",
+    "value": "postgresql://${{POSTGRES_USER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:${{POSTGRES_PORT}}/${{POSTGRES_DB}}",
     "description": "Self-referencing connection string. Consumed by the postgres service itself and referenced by dependent services as ${{postgres.DATABASE_URL}}."
   }
 }

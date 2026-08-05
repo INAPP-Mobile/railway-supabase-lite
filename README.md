@@ -16,7 +16,7 @@ A minimal, cost-optimized self-hosted Supabase stack for Railway. Unlike the ful
 | **rest** | `postgrest/postgrest:v14.8` | `3000` | Auto-generated REST API from Postgres schema |
 | **realtime** | `supabase/realtime:v2.76.5` | `4000` | WebSocket realtime subscriptions |
 | **storage** | `supabase/storage-api:v1.48.26` | `5000` | S3-compatible object storage API |
-| **minio** | `minio/minio:RELEASE.2024-11-07T00-52-20Z` | `9000` / `9001` | S3 backend used by Storage |
+| **minio** | `minio/minio:RELEASE.2025-09-07T16-13-09Z` | `9000` / `9001` | S3 backend used by Storage |
 
 **Not included:** Studio UI, imgproxy, postgres-meta, edge-runtime, logflare/analytics, supavisor, vector. If you need the dashboard, use the official full Supabase template.
 

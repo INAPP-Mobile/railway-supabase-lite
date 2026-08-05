@@ -4,7 +4,7 @@
     "description": "Bind address for the GoTrue (Supabase Auth) API server. 0.0.0.0 binds all interfaces so Railway's proxy can reach it."
   },
   "GOTRUE_API_PORT": {
-    "value": "${{PORT}}",
+    "value": "8080",
     "description": "Listen port for GoTrue API. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it."
   },
   "GOTRUE_DB_DRIVER": {
