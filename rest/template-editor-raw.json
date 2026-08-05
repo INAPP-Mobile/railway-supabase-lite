@@ -20,7 +20,7 @@
     "description": "HS256 secret for verifying JWTs. References the auth service's JWT_SECRET so all services share the same signing key."
   },
   "PGRST_SERVER_PORT": {
-    "value": "${{PORT}}",
-    "description": "PostgREST listen port. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it."
+    "value": "8080",
+    "description": "PostgREST listen port. so health checks and Kong proxy can reach it."
   }
 }

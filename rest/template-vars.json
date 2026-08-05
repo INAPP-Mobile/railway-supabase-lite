@@ -2,7 +2,7 @@
   "PGRST_DB_URI": {
     "name": "PGRST_DB_URI",
     "defaultValue": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
-    "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars. The *** is auto-resolved to the real password by Railway.",
+    "description": "PostgreSQL connection string for PostgREST. Uses private networking and references postgres service vars.",
     "isOptional": false
   },
   "PGRST_DB_SCHEMAS": {
@@ -31,8 +31,8 @@
   },
   "PGRST_SERVER_PORT": {
     "name": "PGRST_SERVER_PORT",
-    "defaultValue": "${{PORT}}",
-    "description": "PostgREST listen port. Set to Railway-injected ${{PORT}} so health checks and Kong proxy can reach it.",
+    "defaultValue": "8080",
+    "description": "PostgREST listen port. so health checks and Kong proxy can reach it.",
     "isOptional": false
   }
 }

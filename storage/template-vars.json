@@ -23,6 +23,24 @@
     "description": "PostgreSQL connection string for storage API. Uses private networking and references postgres service vars.",
     "isOptional": false
   },
+  "POSTGRES_HOST": {
+    "name": "POSTGRES_HOST",
+    "defaultValue": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Postgres private domain \u2014 used by the startCommand wait-for-db loop.",
+    "isOptional": false
+  },
+  "POSTGRES_PORT": {
+    "name": "POSTGRES_PORT",
+    "defaultValue": "${{postgres.POSTGRES_PORT}}",
+    "description": "Postgres TCP port \u2014 used by the startCommand wait-for-db loop.",
+    "isOptional": false
+  },
+  "MINIO_HOST": {
+    "name": "MINIO_HOST",
+    "defaultValue": "${{minio.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "MinIO private domain \u2014 used by the startCommand wait-for-minio loop.",
+    "isOptional": false
+  },
   "FILE_SIZE_LIMIT": {
     "name": "FILE_SIZE_LIMIT",
     "defaultValue": "52428800",

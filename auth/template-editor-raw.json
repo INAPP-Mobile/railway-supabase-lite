@@ -13,11 +13,19 @@
   },
   "GOTRUE_DB_DATABASE_URL": {
     "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=auth",
-    "description": "PostgreSQL connection string for GoTrue. Uses private networking and references postgres service vars. The *** is auto-resolved by Railway to the actual password."
+    "description": "PostgreSQL connection string for GoTrue. Uses private networking and references postgres service vars."
   },
   "DATABASE_URL": {
     "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}",
     "description": "Raw PostgreSQL connection string (without search_path). Available for migrations and tooling."
+  },
+  "POSTGRES_HOST": {
+    "value": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Postgres private domain \u2014 used by the startCommand wait-for-db loop to block startup until postgres is accepting TCP connections."
+  },
+  "POSTGRES_PORT": {
+    "value": "${{postgres.POSTGRES_PORT}}",
+    "description": "Postgres TCP port \u2014 used by the startCommand wait-for-db loop."
   },
   "JWT_SECRET": {
     "value": "super-secret-jwt-token-with-at-least-32-characters-long",

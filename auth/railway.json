@@ -5,7 +5,8 @@
     "healthcheckPath": "/health",
     "healthcheckTimeout": 300,
     "restartPolicyType": "on_failure",
-    "restartPolicyMaxRetries": 10
+    "restartPolicyMaxRetries": 10,
+    "startCommand": "sh -c 'until nc -z $POSTGRES_HOST $POSTGRES_PORT 2>/dev/null; do echo waiting for postgres; sleep 2; done; exec gotrue'"
   },
   "$schema": "https://railway.com/railway.schema.json"
 }

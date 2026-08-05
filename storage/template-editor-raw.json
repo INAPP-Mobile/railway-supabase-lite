@@ -15,6 +15,18 @@
     "value": "postgres://${{postgres.POSTGRES_USER}}:${{postgres.POSTGRES_PASSWORD}}@${{postgres.RAILWAY_PRIVATE_DOMAIN}}:${{postgres.POSTGRES_PORT}}/${{postgres.POSTGRES_DB}}?search_path=storage",
     "description": "PostgreSQL connection string for storage API. Uses private networking and references postgres service vars."
   },
+  "POSTGRES_HOST": {
+    "value": "${{postgres.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "Postgres private domain \u2014 used by the startCommand wait-for-db loop."
+  },
+  "POSTGRES_PORT": {
+    "value": "${{postgres.POSTGRES_PORT}}",
+    "description": "Postgres TCP port \u2014 used by the startCommand wait-for-db loop."
+  },
+  "MINIO_HOST": {
+    "value": "${{minio.RAILWAY_PRIVATE_DOMAIN}}",
+    "description": "MinIO private domain \u2014 used by the startCommand wait-for-minio loop."
+  },
   "FILE_SIZE_LIMIT": {
     "value": "52428800",
     "description": "Maximum file upload size in bytes (52428800 = 50 MB). Increase for larger file support."
