@@ -2,9 +2,9 @@
 
 A minimal, cost-optimized self-hosted Supabase stack for Railway. Unlike the full 12-service Supabase template that needs 4–8 GB RAM, **Supabase Lite runs the 7 core services in ~1.5 GB RAM for roughly $10–15/mo**.
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/XrV26C)
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/supabase-lite)
 
-> **Note:** this is an unpublished draft (template code: `XrV26C`). The deploy link may change if the template is renamed or regenerated.
+> **Note:** template code: `supabase-lite`. Deploy at https://railway.com/deploy/supabase-lite
 
 ## What's included
 
