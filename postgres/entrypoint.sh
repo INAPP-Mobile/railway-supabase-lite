@@ -46,7 +46,7 @@ echo "Postgres is ready."
 # Grant permissions on all supabase schemas to postgres user.
 # Connect as postgres (default superuser in the supabase/postgres image)
 # and ensure it has SUPERUSER plus the _realtime schema exists.
-echo "Granting schema permissions..."
+echo "Granting schema permissions and creating roles..."
 su postgres -c "psql -h 127.0.0.1 -U postgres -d postgres" <<'SQL' || true
 -- Make postgres a SUPERUSER so it can run migrations on all schemas
 ALTER ROLE postgres WITH SUPERUSER;
@@ -57,8 +57,24 @@ CREATE SCHEMA IF NOT EXISTS storage;
 GRANT ALL ON SCHEMA storage TO postgres;
 CREATE SCHEMA IF NOT EXISTS _realtime;
 GRANT ALL ON SCHEMA _realtime TO postgres;
+-- Create Supabase roles required by storage-api migrations
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'anon') THEN
+    CREATE ROLE anon NOLOGIN;
+  END IF;
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'authenticated') THEN
+    CREATE ROLE authenticated NOLOGIN;
+  END IF;
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'service_role') THEN
+    CREATE ROLE service_role NOLOGIN;
+  END IF;
+END
+$$;
+GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
+GRANT USAGE ON SCHEMA storage TO anon, authenticated, service_role;
 SQL
-echo "Schema permissions granted."
+echo "Schema permissions and roles created."
 
 # Wait for the background postgres process
 wait $PG_PID
