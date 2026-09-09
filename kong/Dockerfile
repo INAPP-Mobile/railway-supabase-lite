@@ -1,4 +1,4 @@
-FROM kong:3.9.1
+FROM kong:3.9.3
 # NOTE: kong.yml is generated at runtime by entrypoint.sh from env vars.
 # Do NOT COPY a static kong.yml — the declarative config is rendered
 # from Railway private domain references (AUTH_HOST, REST_HOST, etc.)
