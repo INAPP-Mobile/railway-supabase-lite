@@ -1,18 +1,18 @@
 {
   "MINIO_ROOT_USER": {
     "value": "minioadmin",
-    "description": "MinIO root (admin) username. Referenced by the storage service as AWS_ACCESS_KEY_ID via ${{minio.MINIO_ROOT_USER}}."
+    "description": "RustFS (S3-compatible object storage, MinIO-compatible) root username. RustFS reads this variable natively. Referenced by the storage service as AWS_ACCESS_KEY_ID via ${{minio.MINIO_ROOT_USER}}."
   },
   "MINIO_ROOT_PASSWORD": {
     "value": "${{secret(32)}}",
-    "description": "MinIO root password \u2014 auto-generated at deploy time. Referenced by the storage service as AWS_SECRET_ACCESS_KEY via ${{minio.MINIO_ROOT_PASSWORD}}."
+    "description": "RustFS (S3-compatible object storage, MinIO-compatible) root password — auto-generated at deploy time. RustFS reads this variable natively. Referenced by the storage service as AWS_SECRET_ACCESS_KEY via ${{minio.MINIO_ROOT_PASSWORD}}."
   },
   "MINIO_ADDRESS": {
     "value": "0.0.0.0:8080",
-    "description": "MinIO listen address. Port 8080 matches Railway's injected PORT so health checks can reach it."
+    "description": "Legacy MinIO listen address. RustFS binds via RUSTFS_ADDRESS baked into its Dockerfile (0.0.0.0:8080); this variable is kept so existing wiring and documentation stay valid."
   },
   "PORT": {
     "value": "8080",
-    "description": "Railway-injected port. Minio API listens on this port."
+    "description": "API port the public domain routes to. RustFS binds RUSTFS_ADDRESS (0.0.0.0:8080) and ignores $PORT, so the domain must name the container port explicitly."
   }
 }
