@@ -18,7 +18,7 @@
 # the API port MUST stay 8080 (not RustFS's default 9000). RUSTFS_ADDRESS is
 # pinned to 0.0.0.0:8080 via ENV so no startCommand is needed and the upstream
 # entrypoint runs untouched.
-FROM rustfs/rustfs:latest
+FROM rustfs/rustfs:1.0.6
 
 # Run as root, overriding the image's default `rustfs` user. Railway mounts volumes
 # root-owned, and as uid 10001 rustfs cannot write its metadata directory: it dies at
