@@ -70,15 +70,15 @@ These are defined in each service's `template-vars.json` and prompted on deploy:
 Both keys must be JWTs signed by `JWT_SECRET`. Install the Supabase CLI or use any HS256 signer, then generate:
 
 ```bash
-# Replace <JWT_SECRET> with the value Railway shows for JWT_SECRET
-supabase secrets generate --secret <JWT_SECRET>
+# Replace JWT_SECRET with the value Railway shows for JWT_SECRET
+supabase secrets generate --secret JWT_SECRET
 ```
 
 Or with Node.js / jsonwebtoken:
 
 ```js
 const jwt = require('jsonwebtoken')
-const secret = '<JWT_SECRET>' // from Railway auth service variables
+const secret = 'JWT_SECRET' // from Railway auth service variables
 const anon = jwt.sign({ role: 'anon' }, secret, { algorithm: 'HS256' })
 const service_role = jwt.sign({ role: 'service_role' }, secret, { algorithm: 'HS256' })
 ```
@@ -90,7 +90,7 @@ Paste `anon` into **ANON_KEY** and `service_role` into **SERVICE_ROLE_KEY** in t
 After deployment, your public Supabase URL is the Kong service domain:
 
 ```
-https://<kong-railway-subdomain>.up.railway.app
+https://{kong-railway-subdomain}.up.railway.app
 ```
 
 ### Connect with the JS client
@@ -99,8 +99,8 @@ https://<kong-railway-subdomain>.up.railway.app
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
-  'https://<your-kong-subdomain>.up.railway.app',
-  '<ANON_KEY>'  // from Railway variables
+  'https://{kong-railway-subdomain}.up.railway.app',
+  'ANON_KEY'  // from Railway variables
 )
 ```
 
@@ -118,17 +118,17 @@ const supabase = createClient(
 
 ```bash
 # 1. Get your Kong public domain from Railway variables
-curl -sS "https://<kong-domain>/health" -w "\nHTTP %{http_code}\n"
+curl -sS "https://{kong-domain}/health" -w "\nHTTP %{http_code}\n"
 # expected: HTTP 200
 
 # 2. Check REST API spec
-curl -sS "https://<kong-domain>/rest/v1/" -H "apikey: <ANON_KEY>"
+curl -sS "https://{kong-domain}/rest/v1/" -H "apikey: ANON_KEY"
 
 # 3. Check auth health
-curl -sS "https://<kong-domain>/auth/v1/health" -H "apikey: <ANON_KEY>"
+curl -sS "https://{kong-domain}/auth/v1/health" -H "apikey: ANON_KEY"
 
 # 4. Check storage status
-curl -sS "https://<kong-domain>/storage/v1/status" -H "apikey: <ANON_KEY>"
+curl -sS "https://{kong-domain}/storage/v1/status" -H "apikey: ANON_KEY"
 ```
 
 ## Repository layout
@@ -209,10 +209,10 @@ cd railway-supabase-lite
 railway link
 
 # Redeploy a single service after config changes
-railway redeploy --service <service-name> --yes
+railway redeploy --service {service-name} --yes
 
 # View logs for a service
-railway logs --service <service-name>
+railway logs --service {service-name}
 ```
 
 ## Troubleshooting
